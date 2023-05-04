@@ -1,0 +1,82 @@
+{
+  "project_info": {
+    "project_number": "1012666040892",
+    "project_id": "smartstove",
+    "storage_bucket": "smartstove.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1012666040892:android:8d3ff83c17185416d93939",
+        "android_client_info": {
+          "package_name": "com.example.learningdart"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1012666040892-do4n7iotd2a6sctes4ng8nb7h48mqhoj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDsN9aSJy6p8b-Cb9XHlNXOMGk-1SCmKFg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1012666040892-do4n7iotd2a6sctes4ng8nb7h48mqhoj.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1012666040892-e706tgtba8h0udku9qpoa22vik0gpv0t.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.modernlogintute"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1012666040892:android:46a686c874b03b43d93939",
+        "android_client_info": {
+          "package_name": "com.example.modernlogintute"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1012666040892-do4n7iotd2a6sctes4ng8nb7h48mqhoj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDsN9aSJy6p8b-Cb9XHlNXOMGk-1SCmKFg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1012666040892-do4n7iotd2a6sctes4ng8nb7h48mqhoj.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1012666040892-e706tgtba8h0udku9qpoa22vik0gpv0t.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.modernlogintute"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,29 +1,28 @@
 // ignore_for_file: use_build_context_synchronously
-
 import 'package:flutter/material.dart';
+import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:smartStoveApp/auth/auth_exceptions.dart';
-import 'package:smartStoveApp/auth/auth_google.dart';
 import 'package:smartStoveApp/auth/auth_service.dart';
 import 'package:smartStoveApp/components/my_textfield.dart';
-import 'package:smartStoveApp/components/square_tile.dart';
 import 'package:smartStoveApp/constants/routes.dart';
 import 'package:smartStoveApp/utilities/show_error_dialog.dart';
 
-class LoginPage extends StatefulWidget {
-  const LoginPage({super.key});
+class RegisterPage extends StatefulWidget {
+  const RegisterPage({super.key});
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  State<RegisterPage> createState() => _RegisterPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _RegisterPageState extends State<RegisterPage> {
   // text editing controllers
   final userEmailController = TextEditingController();
-
   final passwordController = TextEditingController();
+  final confirmPasswordController = TextEditingController();
+  final phoneController = TextEditingController();
 
   // sign user in method
-  Future<void> signUserIn(BuildContext context) async {
+  Future<void> registerUser(BuildContext context) async {
     try {
       showDialog(
         context: context,
@@ -33,27 +32,31 @@ class _LoginPageState extends State<LoginPage> {
           );
         },
       );
-      await AuthService.firebase().logIn(
+      await AuthService.firebase().createUser(
         email: userEmailController.text,
         password: passwordController.text,
       );
-    } on UserNotFoundAuthException {
+    } on EmailAlreadyInUseAuthException {
       await showErrorDialog(
         context,
-        'User Not Found',
+        'User email already exist, try to sign in',
       );
-    } on WrongPasswordAuthException {
+    } on WeakPasswordAuthException {
       await showErrorDialog(
         context,
-        'Wrong Password',
+        'Week Password, must be at least 6 characters',
       );
     } on GenericAuthException {
       await showErrorDialog(
         context,
-        'Login Error',
+        'Register Error',
       );
     }
     Navigator.pop(context);
+    Navigator.of(context).pushNamedAndRemoveUntil(
+      homeRoute,
+      (route) => false,
+    );
   }
 
   @override
@@ -74,7 +77,7 @@ class _LoginPageState extends State<LoginPage> {
                   width: 200,
                 ),
 
-                const SizedBox(height: 30),
+                const SizedBox(height: 10),
 
                 Text(
                   'Smart Stove App',
@@ -90,8 +93,19 @@ class _LoginPageState extends State<LoginPage> {
                             blurRadius: 15),
                       ]),
                 ),
+                const SizedBox(height: 10),
+                const Text(
+                  'Welcome To Smart Stove App',
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 13,
+                    fontWeight: FontWeight.normal,
+                    fontFamily: 'DancingScript',
+                    letterSpacing: 3,
+                  ),
+                ),
 
-                const SizedBox(height: 25),
+                const SizedBox(height: 15),
 
                 // username textfield
                 MyTextField(
@@ -111,26 +125,41 @@ class _LoginPageState extends State<LoginPage> {
 
                 const SizedBox(height: 10),
 
-                // forgot password?
+                // Confirm Password textfield
+                MyTextField(
+                  controller: confirmPasswordController,
+                  hintText: 'Confirm Password',
+                  obscureText: true,
+                ),
+
+                const SizedBox(height: 10),
+
+                // Phone Number textfield
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      Text(
-                        'Forgot Password?',
-                        style: TextStyle(color: Colors.grey[600]),
-                      ),
-                    ],
+                  child: IntlPhoneField(
+                    controller: phoneController,
+                    decoration: InputDecoration(
+                        enabledBorder: const OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.white),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.grey.shade400),
+                        ),
+                        fillColor: Colors.grey.shade200,
+                        filled: true,
+                        hintText: 'Phone Number',
+                        hintStyle: TextStyle(color: Colors.grey[500])),
+                    initialCountryCode: 'IL',
                   ),
                 ),
 
-                const SizedBox(height: 25),
+                const SizedBox(height: 10),
 
                 // sign in button
                 GestureDetector(
                   onTap: () {
-                    signUserIn(context);
+                    registerUser(context);
                   },
                   child: Container(
                     padding: const EdgeInsets.all(15),
@@ -141,7 +170,7 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                     child: const Center(
                       child: Text(
-                        "Sign In",
+                        "Sign Up",
                         style: TextStyle(
                           color: Colors.white,
                           fontWeight: FontWeight.bold,
@@ -154,81 +183,28 @@ class _LoginPageState extends State<LoginPage> {
 
                 const SizedBox(height: 30),
 
-                // or continue with
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: Divider(
-                          thickness: 0.5,
-                          color: Colors.grey[400],
-                        ),
-                      ),
-                      const Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 10.0),
-                        child: Text(
-                          'Or continue with',
-                          style: TextStyle(
-                              color: Color.fromARGB(255, 136, 159, 231)),
-                        ),
-                      ),
-                      Expanded(
-                        child: Divider(
-                          thickness: 0.5,
-                          color: Colors.grey[400],
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-
-                const SizedBox(height: 10),
-
-                // google + apple sign in buttons
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    // google button
-                    SquareTile(
-                      onTap: () => AuthGoogle().signInWithGoogle(),
-                      imagePath: 'lib/images/google.png',
-                    ),
-
-                    const SizedBox(width: 25),
-
-                    // apple button
-                    SquareTile(
-                      onTap: () {},
-                      imagePath: 'lib/images/apple.png',
-                    )
-                  ],
-                ),
-
-                const SizedBox(height: 20),
-
                 // not a member? register now
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text(
-                      'Dont have an account? ',
-                      style: TextStyle(color: Colors.grey[700]),
-                    ),
-                    const SizedBox(width: 4),
                     TextButton(
                       onPressed: () {
                         Navigator.of(context).pushNamedAndRemoveUntil(
-                          registerRoute,
+                          loginRoute,
                           (route) => false,
                         );
                       },
-                      child: const Text(
-                        'Register here!',
-                        style: TextStyle(
-                          color: Color.fromARGB(255, 136, 159, 231),
-                          fontWeight: FontWeight.bold,
-                        ),
+                      child: Text(
+                        'Already have an account? ',
+                        style: TextStyle(color: Colors.grey[700]),
+                      ),
+                    ),
+                    const SizedBox(width: 4),
+                    const Text(
+                      'Sign in here!',
+                      style: TextStyle(
+                        color: Color.fromARGB(255, 136, 159, 231),
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
                   ],
