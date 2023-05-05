@@ -91,7 +91,6 @@ class _MyNavigationBarState extends State<MyNavigationBar> {
         onTabChange: (index) {
           setState(() {
             _selectedIndex = index;
-            print(_selectedIndex);
           });
         },
       ),
