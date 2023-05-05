@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:smartStoveApp/auth/auth_service.dart';
 import 'package:smartStoveApp/components/navigation_bar.dart';
 import 'package:smartStoveApp/constants/routes.dart';
 import 'package:smartStoveApp/utilities/show_logout_dialog.dart';
 
-class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+class NotificationsPage extends StatelessWidget {
+  const NotificationsPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +14,7 @@ class HomePage extends StatelessWidget {
         backgroundColor: (Colors.grey[300])!,
         centerTitle: true,
         title: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Image.asset(
               'assets/images/app_logo.png',
@@ -24,8 +23,12 @@ class HomePage extends StatelessWidget {
             const SizedBox(
               width: 10,
             ),
+            const Icon(Icons.notification_add_rounded),
+            const SizedBox(
+              width: 2,
+            ),
             const Text(
-              'Home Page',
+              'Notifications Page',
               style: TextStyle(color: Colors.black),
             ),
           ],
@@ -50,7 +53,6 @@ class HomePage extends StatelessWidget {
           )
         ],
       ),
-      //bottomNavigationBar: const MyNavigationBar(),
     );
   }
 }

@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:smartStoveApp/auth/auth_service.dart';
 import 'package:smartStoveApp/components/navigation_bar.dart';
 import 'package:smartStoveApp/constants/routes.dart';
 import 'package:smartStoveApp/utilities/show_logout_dialog.dart';
 
-class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+class ProfilePage extends StatelessWidget {
+  const ProfilePage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +24,7 @@ class HomePage extends StatelessWidget {
               width: 10,
             ),
             const Text(
-              'Home Page',
+              'Profile Page',
               style: TextStyle(color: Colors.black),
             ),
           ],
@@ -50,7 +49,6 @@ class HomePage extends StatelessWidget {
           )
         ],
       ),
-      //bottomNavigationBar: const MyNavigationBar(),
     );
   }
 }
