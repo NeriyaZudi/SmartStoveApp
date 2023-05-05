@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:smartStoveApp/auth/auth_service.dart';
 import 'package:smartStoveApp/components/food_card.dart';
-import 'package:smartStoveApp/components/navigation_bar.dart';
 import 'package:smartStoveApp/constants/foods.dart';
 import 'package:smartStoveApp/constants/routes.dart';
-import 'package:smartStoveApp/models/food.dart';
 import 'package:smartStoveApp/utilities/show_logout_dialog.dart';
 
 class HomePage extends StatelessWidget {

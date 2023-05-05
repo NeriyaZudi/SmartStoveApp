@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:smartStoveApp/auth/auth_service.dart';
 import 'package:smartStoveApp/constants/routes.dart';
+import 'package:smartStoveApp/detailsPages/egg_details.dart';
+import 'package:smartStoveApp/detailsPages/pasta_details.dart';
+import 'package:smartStoveApp/detailsPages/rice_details.dart';
 import 'package:smartStoveApp/pages/auth_page.dart';
 import 'package:smartStoveApp/pages/home_page.dart';
 import 'package:smartStoveApp/pages/info_page.dart';
@@ -30,6 +33,9 @@ class MyApp extends StatelessWidget {
         infoRoute: (context) => const InfoPage(),
         notificationsRoute: (context) => const NotificationsPage(),
         profileRoute: (context) => const ProfilePage(),
+        riceRoute: (context) => const RiceDetails(),
+        eggRoute: (context) => const EggDetails(),
+        pastaRoute: (context) => const PastaDetails(),
       },
     );
   }
