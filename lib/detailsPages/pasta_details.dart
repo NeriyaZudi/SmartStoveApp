@@ -9,7 +9,7 @@ class PastaDetails extends StatelessWidget {
     return const DetailsCard(
       title: 'Pasta Details Page 🍝',
       name: 'Pasta 🍝',
-      img: 'lib/images/pasta-trans.png',
+      img: 'lib/images/pasta-pot.png',
       time: '8 minutes ⏲️',
       temperature: '140° 🌡️',
     );

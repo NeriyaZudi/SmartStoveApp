@@ -13,6 +13,9 @@ class NotificationsPage extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: (Colors.grey[300])!,
         centerTitle: true,
+        iconTheme: const IconThemeData(
+          color: Colors.black,
+        ),
         title: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -20,17 +23,12 @@ class NotificationsPage extends StatelessWidget {
               'assets/images/app_logo.png',
               scale: 12,
             ),
-            const SizedBox(
-              width: 10,
-            ),
-            const Icon(Icons.notification_add_rounded),
-            const SizedBox(
-              width: 2,
-            ),
+            const SizedBox(width: 10),
             const Text(
               'Notifications Page',
               style: TextStyle(color: Colors.black),
             ),
+            const Icon(Icons.notification_add_rounded),
           ],
         ),
         actions: [

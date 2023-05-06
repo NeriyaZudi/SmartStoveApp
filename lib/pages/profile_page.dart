@@ -14,19 +14,18 @@ class ProfilePage extends StatelessWidget {
         backgroundColor: (Colors.grey[300])!,
         centerTitle: true,
         title: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Image.asset(
               'assets/images/app_logo.png',
               scale: 12,
             ),
-            const SizedBox(
-              width: 10,
-            ),
+            const SizedBox(width: 10),
             const Text(
               'Profile Page',
               style: TextStyle(color: Colors.black),
             ),
+            //const Icon(Icons.man),
           ],
         ),
         actions: [

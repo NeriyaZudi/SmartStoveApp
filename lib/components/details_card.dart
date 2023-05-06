@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:slide_to_act/slide_to_act.dart';
 
 class DetailsCard extends StatefulWidget {
   final String title;
@@ -99,16 +101,16 @@ class _DetailsCardState extends State<DetailsCard> {
                         const Text(
                           'Cooking Time: ',
                           style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold),
+                            color: Colors.black,
+                            fontSize: 18,
+                          ),
                         ),
                         Text(
                           widget.time,
                           style: const TextStyle(
-                              color: Colors.blue,
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold),
+                            color: Colors.blue,
+                            fontSize: 18,
+                          ),
                         ),
                       ],
                     ),
@@ -119,23 +121,23 @@ class _DetailsCardState extends State<DetailsCard> {
                         const Text(
                           'Cooking Temperature: ',
                           style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold),
+                            color: Colors.black,
+                            fontSize: 18,
+                          ),
                         ),
                         Text(
                           widget.temperature,
                           style: const TextStyle(
-                              color: Colors.blue,
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold),
+                            color: Colors.blue,
+                            fontSize: 18,
+                          ),
                         ),
                       ],
                     ),
                     const SizedBox(height: 15),
                     Container(
                       width: 500,
-                      padding: const EdgeInsets.all(16),
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
                       decoration: BoxDecoration(
                         color: Colors.grey.shade200,
                         borderRadius: BorderRadius.circular(12),
@@ -143,21 +145,29 @@ class _DetailsCardState extends State<DetailsCard> {
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          const Text(
-                            'Automatic Stove Control',
-                            style: TextStyle(
-                                color: Colors.black,
-                                fontWeight: FontWeight.w700),
+                          const SizedBox(height: 8),
+                          Text(
+                            'Automatic Stove Control 🎛️',
+                            style: GoogleFonts.lato(
+                              textStyle: const TextStyle(
+                                  color: Colors.red,
+                                  fontStyle: FontStyle.italic,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w700),
+                            ),
                           ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              const Text(
+                              Text(
                                 'Automatic Ignition ',
-                                style: TextStyle(
+                                style: GoogleFonts.lato(
+                                  textStyle: const TextStyle(
                                     color: Colors.black,
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.bold),
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
                               ),
                               Switch(
                                 value: onValue,
@@ -172,12 +182,15 @@ class _DetailsCardState extends State<DetailsCard> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              const Text(
+                              Text(
                                 'Automatic Shutdown ',
-                                style: TextStyle(
+                                style: GoogleFonts.lato(
+                                  textStyle: const TextStyle(
                                     color: Colors.black,
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.bold),
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
                               ),
                               Switch(
                                 value: offValue,
@@ -191,7 +204,29 @@ class _DetailsCardState extends State<DetailsCard> {
                           ),
                         ],
                       ),
-                    )
+                    ),
+                    const SizedBox(height: 15),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 12),
+                      child: Center(
+                        child: SlideAction(
+                          borderRadius: 15,
+                          height: 60,
+                          sliderButtonIcon: const Icon(Icons.swipe_right),
+                          innerColor: Colors.blue.shade200,
+                          text: '   Slide to Cooking',
+                          textStyle: const TextStyle(
+                            fontSize: 20,
+                            color: Colors.white,
+                            fontFamily: 'Montserrat',
+                            fontWeight: FontWeight.bold,
+                          ),
+                          onSubmit: () {
+                            //move to cook page
+                          },
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               ),

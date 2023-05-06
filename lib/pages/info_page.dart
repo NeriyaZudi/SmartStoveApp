@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:smartStoveApp/auth/auth_service.dart';
-import 'package:smartStoveApp/components/navigation_bar.dart';
 import 'package:smartStoveApp/constants/routes.dart';
 import 'package:smartStoveApp/utilities/show_logout_dialog.dart';
 
@@ -13,20 +12,22 @@ class InfoPage extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: (Colors.grey[300])!,
         centerTitle: true,
+        iconTheme: const IconThemeData(
+          color: Colors.black,
+        ),
         title: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Image.asset(
               'assets/images/app_logo.png',
               scale: 12,
             ),
-            const SizedBox(
-              width: 10,
-            ),
+            const SizedBox(width: 10),
             const Text(
               'Information Page',
               style: TextStyle(color: Colors.black),
             ),
+            const Icon(Icons.info),
           ],
         ),
         actions: [

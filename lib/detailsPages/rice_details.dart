@@ -9,7 +9,7 @@ class RiceDetails extends StatelessWidget {
     return const DetailsCard(
       title: 'Rice Details Page 🍚',
       name: 'Rice 🍚',
-      img: 'lib/images/rice-trans.png',
+      img: 'lib/images/rice-pot.png',
       time: '20 minutes ⏲️',
       temperature: '120° 🌡️',
     );

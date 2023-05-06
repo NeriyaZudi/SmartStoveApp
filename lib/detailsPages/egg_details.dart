@@ -9,7 +9,7 @@ class EggDetails extends StatelessWidget {
     return const DetailsCard(
       title: 'Egg Details Page 🥚',
       name: 'Egg 🥚',
-      img: 'lib/images/egg-trans.png',
+      img: 'lib/images/egg-pot.png',
       time: '10 minutes ⏲️',
       temperature: '100° 🌡️',
     );
