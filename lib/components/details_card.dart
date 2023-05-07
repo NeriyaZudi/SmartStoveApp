@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:slide_to_act/slide_to_act.dart';
+import 'package:smartStoveApp/components/cooking_animation.dart';
 
 class DetailsCard extends StatefulWidget {
+  final int foodIndex;
   final String title;
   final String name;
   final String img;
@@ -10,6 +12,7 @@ class DetailsCard extends StatefulWidget {
   final String temperature;
   const DetailsCard({
     super.key,
+    required this.foodIndex,
     required this.title,
     required this.name,
     required this.img,
@@ -24,6 +27,8 @@ class DetailsCard extends StatefulWidget {
 class _DetailsCardState extends State<DetailsCard> {
   bool onValue = false;
   bool offValue = false;
+
+  get foodIndex => null;
 
   @override
   Widget build(BuildContext context) {
@@ -222,7 +227,12 @@ class _DetailsCardState extends State<DetailsCard> {
                             fontWeight: FontWeight.bold,
                           ),
                           onSubmit: () {
-                            //move to cook page
+                            Navigator.push(context, MaterialPageRoute(
+                              builder: (context) {
+                                return CookingAnimation(
+                                    foodIndex: widget.foodIndex);
+                              },
+                            ));
                           },
                         ),
                       ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 import 'package:smartStoveApp/auth/auth_service.dart';
 import 'package:smartStoveApp/components/navigation_bar.dart';
 import 'package:smartStoveApp/constants/routes.dart';
@@ -25,7 +26,6 @@ class ProfilePage extends StatelessWidget {
               'Profile Page',
               style: TextStyle(color: Colors.black),
             ),
-            //const Icon(Icons.man),
           ],
         ),
         actions: [

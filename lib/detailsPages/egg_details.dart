@@ -7,6 +7,7 @@ class EggDetails extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const DetailsCard(
+      foodIndex: 1,
       title: 'Egg Details Page 🥚',
       name: 'Egg 🥚',
       img: 'lib/images/egg-pot.png',

@@ -7,6 +7,7 @@ class PastaDetails extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const DetailsCard(
+      foodIndex: 2,
       title: 'Pasta Details Page 🍝',
       name: 'Pasta 🍝',
       img: 'lib/images/pasta-pot.png',
