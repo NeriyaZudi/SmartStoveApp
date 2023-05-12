@@ -3,6 +3,7 @@ import 'package:smartStoveApp/detailsPages/egg_details.dart';
 import 'package:smartStoveApp/detailsPages/pasta_details.dart';
 import 'package:smartStoveApp/detailsPages/rice_details.dart';
 import 'package:smartStoveApp/models/food.dart';
+import 'package:smartStoveApp/pages/feedback_page.dart';
 
 class FoodCard extends StatelessWidget {
   Food food;

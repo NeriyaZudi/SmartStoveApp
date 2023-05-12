@@ -4,6 +4,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:smartStoveApp/components/button_widget.dart';
 import 'package:smartStoveApp/components/navigation_bar.dart';
+import 'package:smartStoveApp/pages/feedback_page.dart';
 import 'package:smartStoveApp/utilities/show_cancel_dialog.dart';
 
 class CookingPage extends StatefulWidget {
@@ -214,7 +215,13 @@ class _CookingPageState extends State<CookingPage> {
                         text: "Give Feedback",
                         bgcolor: Colors.blue.shade600,
                         icon: const Icon(Icons.thumb_up),
-                        onClick: () {},
+                        onClick: () {
+                          Navigator.push(context, MaterialPageRoute(
+                            builder: (context) {
+                              return FeedbackPage();
+                            },
+                          ));
+                        },
                       ),
                       const SizedBox(height: 10),
                     ],

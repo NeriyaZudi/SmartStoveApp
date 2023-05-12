@@ -46,6 +46,8 @@ dependencies:
   slide_to_act: ^2.0.1
   lottie: ^2.3.2
   font_awesome_flutter: ^10.4.0
+  smooth_star_rating: ^1.1.1
+  rating_dialog: ^2.0.4
 
 dev_dependencies:
   flutter_test:
@@ -71,7 +73,9 @@ flutter:
     - family: DancingScript
       fonts:
         - asset: assets/dancing_script.ttf
-
+    - family: Ubuntu
+      fonts:
+        - asset: assets/Ubuntu-Medium.ttf
   # To add assets to your application, add an assets section, like this:
   assets:
     - lib/images/
