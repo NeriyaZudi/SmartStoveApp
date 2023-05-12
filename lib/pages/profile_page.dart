@@ -112,7 +112,7 @@ class ProfilePage extends StatelessWidget {
               buildSocialIcon(FontAwesomeIcons.github),
               const SizedBox(height: 12),
               buildSocialIcon(FontAwesomeIcons.linkedin),
-              const SizedBox(height: 12),
+              const SizedBox(height: 12)
             ],
           )
         ],
