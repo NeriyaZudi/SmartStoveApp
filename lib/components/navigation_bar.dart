@@ -85,6 +85,7 @@ class _MyNavigationBarState extends State<MyNavigationBar> {
           ),
           GButton(
             icon: Icons.person,
+            text: 'Profile',
           ),
         ],
         selectedIndex: _selectedIndex,

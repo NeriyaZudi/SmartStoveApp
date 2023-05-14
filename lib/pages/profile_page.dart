@@ -1,13 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:smartStoveApp/auth/auth_service.dart';
 import 'package:smartStoveApp/constants/routes.dart';
 import 'package:smartStoveApp/utilities/show_logout_dialog.dart';
 
-class ProfilePage extends StatelessWidget {
+class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
+
+  @override
+  State<ProfilePage> createState() => _ProfilePageState();
+}
+
+class _ProfilePageState extends State<ProfilePage> {
   final double coverHeight = 250;
   final double profileHeight = 144;
+
+  //List<double> weeklyElectricy
 
   @override
   Widget build(BuildContext context) {
@@ -85,36 +92,39 @@ class ProfilePage extends StatelessWidget {
           fit: BoxFit.cover,
         ),
       );
+
   Widget buildProfileImage() => CircleAvatar(
         backgroundColor: Colors.grey.shade700,
         backgroundImage: const AssetImage('lib/images/eilon.jpg'),
         radius: profileHeight / 2,
       );
+
   Widget buildContent() {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 48),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          const Text(
+        children: const [
+          Text(
             'Eilon Yifrach',
             style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
           ),
-          const SizedBox(height: 15),
-          const Text(
+          // const SizedBox(height: 15),
+          // Row(
+          //   mainAxisAlignment: MainAxisAlignment.center,
+          //   children: [
+          //     const SizedBox(width: 12),
+          //     buildSocialIcon(FontAwesomeIcons.github),
+          //     const SizedBox(width: 12),
+          //     buildSocialIcon(FontAwesomeIcons.linkedin),
+          //     const SizedBox(width: 12)
+          //   ],
+          // ),
+          SizedBox(height: 15),
+          Text(
             'Electricity consumption when using stoves',
             style: TextStyle(fontSize: 10),
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const SizedBox(height: 12),
-              buildSocialIcon(FontAwesomeIcons.github),
-              const SizedBox(height: 12),
-              buildSocialIcon(FontAwesomeIcons.linkedin),
-              const SizedBox(height: 12)
-            ],
-          )
         ],
       ),
     );

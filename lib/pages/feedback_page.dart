@@ -6,7 +6,8 @@ import 'package:smartStoveApp/components/feedback_animation.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
 
 class FeedbackPage extends StatefulWidget {
-  FeedbackPage({super.key});
+  final String img;
+  FeedbackPage({super.key, required this.img});
 
   @override
   State<FeedbackPage> createState() => _FeedbackPageState();
@@ -103,13 +104,13 @@ class _FeedbackPageState extends State<FeedbackPage> {
                   ),
                 ),
               ),
-              const Positioned(
+              Positioned(
                 top: 145,
                 left: 25,
                 child: CircleAvatar(
                   radius: 55,
                   backgroundColor: Colors.transparent,
-                  foregroundImage: AssetImage('lib/images/rice-f.png'),
+                  foregroundImage: AssetImage(widget.img),
                 ),
               ),
             ],

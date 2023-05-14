@@ -90,7 +90,32 @@ class _CookingPageState extends State<CookingPage> {
     }
   }
 
-  void toogleAction() {}
+  void navigateFeedBacKPage() {
+    switch (widget.name) {
+      case 'Rice 🍚':
+        Navigator.push(context, MaterialPageRoute(
+          builder: (context) {
+            return FeedbackPage(img: 'lib/images/rice-f.png');
+          },
+        ));
+        break;
+      case 'Egg 🥚':
+        Navigator.push(context, MaterialPageRoute(
+          builder: (context) {
+            return FeedbackPage(img: 'lib/images/egg-f.png');
+          },
+        ));
+        break;
+      case 'Pasta 🍝':
+        Navigator.push(context, MaterialPageRoute(
+          builder: (context) {
+            return FeedbackPage(img: 'lib/images/pasta-f.png');
+          },
+        ));
+        break;
+      default:
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -216,11 +241,7 @@ class _CookingPageState extends State<CookingPage> {
                         bgcolor: Colors.blue.shade600,
                         icon: const Icon(Icons.thumb_up),
                         onClick: () {
-                          Navigator.push(context, MaterialPageRoute(
-                            builder: (context) {
-                              return FeedbackPage();
-                            },
-                          ));
+                          navigateFeedBacKPage();
                         },
                       ),
                       const SizedBox(height: 10),

@@ -23,14 +23,8 @@ class _CookingAnimationState extends State<CookingAnimation> {
     Timer(const Duration(seconds: 4), () {
       switch (widget.foodIndex) {
         case 0:
-          Navigator.of(context).pushReplacement(MaterialPageRoute(
-              builder: (context) => const CookingPage(
-                    title: 'Rice Cooking Page 🍚',
-                    name: 'Rice 🍚',
-                    img: 'lib/images/rice.jpg',
-                    time: '20 minutes ⏲️',
-                    temperature: '120° 🌡️',
-                  )));
+          Navigator.of(context).pushReplacement(
+              MaterialPageRoute(builder: (context) => const RiceCooking()));
           break;
         case 1:
           Navigator.of(context).pushReplacement(
