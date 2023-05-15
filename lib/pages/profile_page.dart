@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:smartStoveApp/auth/auth_service.dart';
+import 'package:smartStoveApp/barGraphs/bar_graph.dart';
+import 'package:smartStoveApp/barGraphs/pie_graph.dart';
+import 'package:smartStoveApp/components/info_card.dart';
 import 'package:smartStoveApp/constants/routes.dart';
 import 'package:smartStoveApp/utilities/show_logout_dialog.dart';
+import 'package:smartStoveApp/utilities/utils.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -14,7 +18,19 @@ class _ProfilePageState extends State<ProfilePage> {
   final double coverHeight = 250;
   final double profileHeight = 144;
 
-  //List<double> weeklyElectricy
+  List<double> weeklyConsumption = [
+    4.40,
+    20.50,
+    10.80,
+    64.70,
+    98.23,
+    80.6,
+    0.20
+  ];
+  final email = "neriya@gmail.com";
+  final phone = "052-3112891";
+  final stove = "Gold Line ATL-103";
+  final url = "https://www.goldline.co.il/product/atl-103/";
 
   @override
   Widget build(BuildContext context) {
@@ -100,49 +116,42 @@ class _ProfilePageState extends State<ProfilePage> {
       );
 
   Widget buildContent() {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 48),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: const [
-          Text(
-            'Eilon Yifrach',
-            style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
-          ),
-          // const SizedBox(height: 15),
-          // Row(
-          //   mainAxisAlignment: MainAxisAlignment.center,
-          //   children: [
-          //     const SizedBox(width: 12),
-          //     buildSocialIcon(FontAwesomeIcons.github),
-          //     const SizedBox(width: 12),
-          //     buildSocialIcon(FontAwesomeIcons.linkedin),
-          //     const SizedBox(width: 12)
-          //   ],
-          // ),
-          SizedBox(height: 15),
-          Text(
-            'Electricity consumption when using stoves',
-            style: TextStyle(fontSize: 10),
-          ),
-        ],
+    return SingleChildScrollView(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 48),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            const Text(
+              'Eilon Yifrach',
+              style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 15),
+            InfoCard(text: phone, icon: Icons.phone, onPressed: () async {}),
+            InfoCard(text: email, icon: Icons.email, onPressed: () async {}),
+            InfoCard(
+                text: stove,
+                icon: Icons.fireplace,
+                onPressed: () => Utils.openLink(url: url)),
+            const SizedBox(height: 20),
+            const Text(
+              'Electricity consumption when using stoves',
+              style: TextStyle(fontSize: 10),
+            ),
+            const SizedBox(
+              height: 200,
+              child: PieChartFoods(),
+            ),
+            const SizedBox(height: 30),
+            SizedBox(
+              height: 200,
+              child: MyBarGraph(
+                weeklyConsumption: weeklyConsumption,
+              ),
+            )
+          ],
+        ),
       ),
     );
   }
-
-  Widget buildSocialIcon(IconData icon) => CircleAvatar(
-      radius: 25,
-      child: Material(
-        shape: const CircleBorder(),
-        clipBehavior: Clip.hardEdge,
-        color: Colors.transparent,
-        child: InkWell(
-          onTap: () {
-            print(icon.toString());
-          },
-          child: Center(
-            child: Icon(icon, size: 32),
-          ),
-        ),
-      ));
 }

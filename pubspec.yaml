@@ -49,6 +49,8 @@ dependencies:
   smooth_star_rating: ^1.1.1
   rating_dialog: ^2.0.4
   fl_chart: ^0.62.0
+  flutter_svg: ^2.0.5
+  url_launcher: ^6.1.11
 
 dev_dependencies:
   flutter_test:
@@ -77,12 +79,18 @@ flutter:
     - family: Ubuntu
       fonts:
         - asset: assets/Ubuntu-Medium.ttf
+    - family: WixMadeforDisplay
+      fonts:
+        - asset: assets/WixMadeforDisplay-Regular.ttf
   # To add assets to your application, add an assets section, like this:
   assets:
     - lib/images/
     - animations/
     - assets/images/app_logo.png
     - assets/images/cover.png
+    - assets/rice-s.svg
+    - assets/egg-s.svg
+    - assets/pasta-s.svg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

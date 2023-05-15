@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:smartStoveApp/auth/auth_service.dart';
 import 'package:smartStoveApp/constants/routes.dart';
 import 'package:smartStoveApp/utilities/show_logout_dialog.dart';
@@ -57,7 +58,34 @@ class _InfoPageState extends State<InfoPage> {
           )
         ],
       ),
-      body: Center(),
+      body: Center(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const SizedBox(width: 12),
+            buildSocialIcon(FontAwesomeIcons.github),
+            const SizedBox(width: 12),
+            buildSocialIcon(FontAwesomeIcons.linkedin),
+            const SizedBox(width: 12)
+          ],
+        ),
+      ),
     );
   }
+
+  Widget buildSocialIcon(IconData icon) => CircleAvatar(
+      radius: 25,
+      child: Material(
+        shape: const CircleBorder(),
+        clipBehavior: Clip.hardEdge,
+        color: Colors.transparent,
+        child: InkWell(
+          onTap: () {
+            print(icon.toString());
+          },
+          child: Center(
+            child: Icon(icon, size: 32),
+          ),
+        ),
+      ));
 }
