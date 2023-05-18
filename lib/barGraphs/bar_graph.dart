@@ -9,13 +9,18 @@ class MyBarGraph extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     BarData data = BarData(
-      sunAmount: weeklyConsumption[0],
-      monAmount: weeklyConsumption[1],
-      tueAmount: weeklyConsumption[2],
-      wenAmount: weeklyConsumption[3],
-      turAmount: weeklyConsumption[4],
-      friAmount: weeklyConsumption[5],
-      satAmount: weeklyConsumption[6],
+      janAmount: weeklyConsumption[0],
+      febAmount: weeklyConsumption[1],
+      marchAmount: weeklyConsumption[2],
+      aprAmount: weeklyConsumption[3],
+      mayAmount: weeklyConsumption[4],
+      junAmount: weeklyConsumption[5],
+      julAmount: weeklyConsumption[6],
+      augAmount: weeklyConsumption[7],
+      sepAmount: weeklyConsumption[8],
+      octAmount: weeklyConsumption[9],
+      novAmount: weeklyConsumption[10],
+      decAmount: weeklyConsumption[11],
     );
     data.initBarData();
     return BarChart(
@@ -29,12 +34,15 @@ class MyBarGraph extends StatelessWidget {
           topTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
           rightTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
           bottomTitles: AxisTitles(
-              sideTitles: SideTitles(
-                  showTitles: true, getTitlesWidget: getBottomTitels)),
+            sideTitles:
+                SideTitles(showTitles: true, getTitlesWidget: getBottomTitels),
+          ),
         ),
         barGroups: data.barData
             .map((d) => BarChartGroupData(
                   x: d.x,
+                  groupVertically: false,
+                  barsSpace: 60,
                   barRods: [
                     BarChartRodData(
                       toY: d.y,
@@ -49,6 +57,23 @@ class MyBarGraph extends StatelessWidget {
                   ],
                 ))
             .toList(),
+        barTouchData: BarTouchData(
+          touchTooltipData: BarTouchTooltipData(
+            tooltipBgColor: Colors.transparent,
+            tooltipPadding: const EdgeInsets.all(0),
+            tooltipMargin: 0,
+            getTooltipItem: (group, groupIndex, rod, rodIndex) {
+              final tapStr = '${rod.toY.round()}%';
+              return BarTooltipItem(
+                  tapStr,
+                  TextStyle(
+                    color: Colors.blue.shade600,
+                    fontSize: 9,
+                    fontWeight: FontWeight.bold,
+                  ));
+            },
+          ),
+        ),
       ),
     );
   }
@@ -58,30 +83,45 @@ Widget getBottomTitels(double value, TitleMeta meta) {
   final style = TextStyle(
     color: Colors.blue[400],
     fontWeight: FontWeight.bold,
-    fontSize: 12,
+    fontSize: 8,
   );
   Widget text;
   switch (value.toInt()) {
     case 0:
-      text = Text('S', style: style);
+      text = Text('Jan', style: style);
       break;
     case 1:
-      text = Text('M', style: style);
+      text = Text('Feb', style: style);
       break;
     case 2:
-      text = Text('T', style: style);
+      text = Text('Mar', style: style);
       break;
     case 3:
-      text = Text('W', style: style);
+      text = Text('Apr', style: style);
       break;
     case 4:
-      text = Text('T', style: style);
+      text = Text('May', style: style);
       break;
     case 5:
-      text = Text('F', style: style);
+      text = Text('June', style: style);
       break;
     case 6:
-      text = Text('S', style: style);
+      text = Text('July', style: style);
+      break;
+    case 7:
+      text = Text('Aug', style: style);
+      break;
+    case 8:
+      text = Text('Sept', style: style);
+      break;
+    case 9:
+      text = Text('Oct', style: style);
+      break;
+    case 10:
+      text = Text('Nov', style: style);
+      break;
+    case 11:
+      text = Text('Dec', style: style);
       break;
     default:
       text = Text(' ', style: style);

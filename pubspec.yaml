@@ -51,6 +51,7 @@ dependencies:
   fl_chart: ^0.62.0
   flutter_svg: ^2.0.5
   url_launcher: ^6.1.11
+  flutter_bluetooth_serial: ^0.4.0
 
 dev_dependencies:
   flutter_test:

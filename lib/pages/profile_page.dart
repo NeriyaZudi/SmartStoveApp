@@ -25,7 +25,12 @@ class _ProfilePageState extends State<ProfilePage> {
     64.70,
     98.23,
     80.6,
-    0.20
+    5.40,
+    48.0,
+    76.0,
+    54.9,
+    13.5,
+    92.3
   ];
   final email = "neriya@gmail.com";
   final phone = "052-3112891";
@@ -134,17 +139,36 @@ class _ProfilePageState extends State<ProfilePage> {
                 icon: Icons.fireplace,
                 onPressed: () => Utils.openLink(url: url)),
             const SizedBox(height: 20),
-            const Text(
-              'Electricity consumption when using stoves',
-              style: TextStyle(fontSize: 10),
+            Text(
+              'Segmentation of usage percentages by food type',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                color: Colors.blue[500],
+                fontSize: 22,
+                fontWeight: FontWeight.bold,
+                fontFamily: 'Ubuntu',
+              ),
             ),
+            const SizedBox(height: 10),
             const SizedBox(
               height: 200,
               child: PieChartFoods(),
             ),
-            const SizedBox(height: 30),
+            const SizedBox(height: 50),
+            Text(
+              'Electricity consumption when using stoves',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                color: Colors.blue[500],
+                fontSize: 22,
+                fontWeight: FontWeight.bold,
+                fontFamily: 'Ubuntu',
+              ),
+            ),
+            const SizedBox(height: 10),
             SizedBox(
               height: 200,
+              width: double.infinity,
               child: MyBarGraph(
                 weeklyConsumption: weeklyConsumption,
               ),
