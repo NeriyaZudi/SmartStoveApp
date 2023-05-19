@@ -1,12 +1,49 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:smartStoveApp/auth/auth_service.dart';
 import 'package:smartStoveApp/components/food_card.dart';
-import 'package:smartStoveApp/constants/foods.dart';
 import 'package:smartStoveApp/constants/routes.dart';
+import 'package:smartStoveApp/models/food.dart';
 import 'package:smartStoveApp/utilities/show_logout_dialog.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({super.key});
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  List<Food> foodTypes = [];
+  void getDocuments() async {
+    FirebaseFirestore firestore = FirebaseFirestore.instance;
+    List<Food> foods = [];
+    QuerySnapshot querySnapshot = await firestore.collection('foods').get();
+
+    if (querySnapshot.docs.isNotEmpty) {
+      List<DocumentSnapshot> documentList = querySnapshot.docs;
+      for (DocumentSnapshot snapshot in documentList) {
+        Food f = Food(
+          index: snapshot.get('index'),
+          name: snapshot.id,
+          preparationTime: snapshot.get('preparationTime'),
+          description: snapshot.get('description'),
+          imagePath: snapshot.get('imagePath'),
+        );
+        foods.add(f);
+      }
+      foods.sort((a, b) => a.index.compareTo(b.index));
+    }
+    setState(() {
+      foodTypes = foods;
+    });
+  }
+
+  @override
+  void initState() {
+    getDocuments();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {

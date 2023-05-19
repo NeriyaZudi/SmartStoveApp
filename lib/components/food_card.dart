@@ -90,7 +90,7 @@ class FoodCard extends StatelessWidget {
                 ],
               ),
             ),
-            const SizedBox(height: 60),
+            const SizedBox(height: 20),
             //description
             Text(
               food.description,

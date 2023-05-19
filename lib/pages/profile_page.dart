@@ -48,7 +48,6 @@ class _ProfilePageState extends State<ProfilePage> {
 
   void getUserId() async {
     User? user = auth.currentUser;
-
     if (user != null) {
       FirebaseFirestore firestore = FirebaseFirestore.instance;
       DocumentReference userDocRef =
