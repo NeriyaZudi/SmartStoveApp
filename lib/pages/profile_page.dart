@@ -1,8 +1,12 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:smartStoveApp/auth/auth_service.dart';
 import 'package:smartStoveApp/barGraphs/bar_graph.dart';
 import 'package:smartStoveApp/barGraphs/pie_graph.dart';
 import 'package:smartStoveApp/components/info_card.dart';
+import 'package:smartStoveApp/constants/foods.dart';
 import 'package:smartStoveApp/constants/routes.dart';
 import 'package:smartStoveApp/utilities/show_logout_dialog.dart';
 import 'package:smartStoveApp/utilities/utils.dart';
@@ -17,6 +21,8 @@ class ProfilePage extends StatefulWidget {
 class _ProfilePageState extends State<ProfilePage> {
   final double coverHeight = 250;
   final double profileHeight = 144;
+  String? userUid;
+  final FirebaseAuth auth = FirebaseAuth.instance;
 
   List<double> weeklyConsumption = [
     4.40,
@@ -32,10 +38,44 @@ class _ProfilePageState extends State<ProfilePage> {
     13.5,
     92.3
   ];
-  final email = "neriya@gmail.com";
-  final phone = "052-3112891";
-  final stove = "Gold Line ATL-103";
-  final url = "https://www.goldline.co.il/product/atl-103/";
+
+  String email = '';
+  String userName = '';
+  String phone = '';
+  String imgPath = '';
+  final stove = STOVE;
+  final url = URL;
+
+  void getUserId() async {
+    User? user = auth.currentUser;
+
+    if (user != null) {
+      FirebaseFirestore firestore = FirebaseFirestore.instance;
+      DocumentReference userDocRef =
+          firestore.collection('users').doc(user.email);
+
+      DocumentSnapshot snapshot = await userDocRef.get();
+
+      if (snapshot.exists) {
+        setState(() {
+          userName = snapshot.get('name');
+          email = snapshot.id;
+          phone = '0' + snapshot.get('phone');
+          imgPath = snapshot.get('img');
+        });
+      } else {
+        //print('User document does not exist');
+      }
+    } else {
+      //print('No user is currently logged in');
+    }
+  }
+
+  @override
+  void initState() {
+    getUserId();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -116,7 +156,7 @@ class _ProfilePageState extends State<ProfilePage> {
 
   Widget buildProfileImage() => CircleAvatar(
         backgroundColor: Colors.grey.shade700,
-        backgroundImage: const AssetImage('lib/images/eilon.jpg'),
+        backgroundImage: AssetImage(imgPath),
         radius: profileHeight / 2,
       );
 
@@ -127,9 +167,9 @@ class _ProfilePageState extends State<ProfilePage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            const Text(
-              'Eilon Yifrach',
-              style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
+            Text(
+              userName,
+              style: const TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 15),
             InfoCard(text: phone, icon: Icons.phone, onPressed: () async {}),

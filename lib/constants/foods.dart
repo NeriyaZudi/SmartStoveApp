@@ -1,3 +1,5 @@
+// ignore_for_file: constant_identifier_names
+
 import 'package:smartStoveApp/models/food.dart';
 
 List<Food> foodTypes = [
@@ -26,3 +28,6 @@ List<Food> foodTypes = [
     imagePath: 'lib/images/ptitim.jpg',
   ),
 ];
+
+const String STOVE = "Gold Line ATL-103";
+const String URL = "Gold Line ATL-103";

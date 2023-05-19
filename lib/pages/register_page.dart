@@ -1,10 +1,17 @@
 // ignore_for_file: use_build_context_synchronously
+import 'dart:math';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:smartStoveApp/auth/auth_exceptions.dart';
 import 'package:smartStoveApp/auth/auth_service.dart';
 import 'package:smartStoveApp/components/my_textfield.dart';
+import 'package:smartStoveApp/components/navigation_bar.dart';
 import 'package:smartStoveApp/constants/routes.dart';
+import 'package:smartStoveApp/pages/login_page.dart';
 import 'package:smartStoveApp/utilities/show_error_dialog.dart';
 
 class RegisterPage extends StatefulWidget {
@@ -17,9 +24,21 @@ class RegisterPage extends StatefulWidget {
 class _RegisterPageState extends State<RegisterPage> {
   // text editing controllers
   final userEmailController = TextEditingController();
+  final userNameController = TextEditingController();
   final passwordController = TextEditingController();
   final confirmPasswordController = TextEditingController();
   final phoneController = TextEditingController();
+  FirebaseAuth auth = FirebaseAuth.instance;
+
+  @override
+  void dispose() {
+    userEmailController.dispose();
+    userNameController.dispose();
+    passwordController.dispose();
+    confirmPasswordController.dispose();
+    phoneController.dispose();
+    super.dispose();
+  }
 
   // sign user in method
   Future<void> registerUser(BuildContext context) async {
@@ -32,9 +51,16 @@ class _RegisterPageState extends State<RegisterPage> {
           );
         },
       );
+      // create the user
       await AuthService.firebase().createUser(
         email: userEmailController.text,
         password: passwordController.text,
+      );
+      // add user details
+      addUserDetails(
+        userNameController.text,
+        phoneController.text,
+        userEmailController.text,
       );
     } on EmailAlreadyInUseAuthException {
       await showErrorDialog(
@@ -53,10 +79,27 @@ class _RegisterPageState extends State<RegisterPage> {
       );
     }
     Navigator.pop(context);
-    Navigator.of(context).pushNamedAndRemoveUntil(
-      homeRoute,
-      (route) => false,
-    );
+    Navigator.push(context, MaterialPageRoute(
+      builder: (context) {
+        return const MyNavigationBar();
+      },
+    ));
+  }
+
+  Future addUserDetails(String userName, String phone, String email) async {
+    User? user = auth.currentUser;
+    if (user != null) {
+      FirebaseFirestore firestore = FirebaseFirestore.instance;
+      DocumentReference userDocRef =
+          firestore.collection('users').doc(user.email);
+      Map<String, dynamic> userData = {
+        'name': userName,
+        'phone': phone,
+        'email': user.email,
+      };
+      await userDocRef.set(userData);
+      print('User data saved successfully!');
+    }
   }
 
   @override
@@ -73,11 +116,11 @@ class _RegisterPageState extends State<RegisterPage> {
 
                 Image.asset(
                   'assets/images/app_logo.png',
-                  height: 150,
+                  height: 130,
                   width: 200,
                 ),
 
-                const SizedBox(height: 10),
+                const SizedBox(height: 8),
 
                 Text(
                   'Smart Stove App',
@@ -98,8 +141,8 @@ class _RegisterPageState extends State<RegisterPage> {
                   'Welcome To Smart Stove App',
                   style: TextStyle(
                     color: Colors.black,
-                    fontSize: 13,
-                    fontWeight: FontWeight.normal,
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
                     fontFamily: 'DancingScript',
                     letterSpacing: 3,
                   ),
@@ -111,6 +154,14 @@ class _RegisterPageState extends State<RegisterPage> {
                 MyTextField(
                   controller: userEmailController,
                   hintText: 'Email',
+                  obscureText: false,
+                ),
+
+                const SizedBox(height: 10),
+                // username textfield
+                MyTextField(
+                  controller: userNameController,
+                  hintText: 'Name',
                   obscureText: false,
                 ),
 
@@ -156,7 +207,7 @@ class _RegisterPageState extends State<RegisterPage> {
 
                 const SizedBox(height: 10),
 
-                // sign in button
+                // sign up button
                 GestureDetector(
                   onTap: () {
                     registerUser(context);
@@ -181,32 +232,31 @@ class _RegisterPageState extends State<RegisterPage> {
                   ),
                 ),
 
-                const SizedBox(height: 30),
+                const SizedBox(height: 5),
 
                 // not a member? register now
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
+                    Text(
+                      'Already have an account? ',
+                      style: TextStyle(color: Colors.grey[700]),
+                    ),
                     TextButton(
-                      onPressed: () {
-                        Navigator.of(context).pushNamedAndRemoveUntil(
-                          loginRoute,
-                          (route) => false,
-                        );
-                      },
-                      child: Text(
-                        'Already have an account? ',
-                        style: TextStyle(color: Colors.grey[700]),
-                      ),
-                    ),
-                    const SizedBox(width: 4),
-                    const Text(
-                      'Sign in here!',
-                      style: TextStyle(
-                        color: Color.fromARGB(255, 136, 159, 231),
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
+                        onPressed: () {
+                          Navigator.push(context, MaterialPageRoute(
+                            builder: (context) {
+                              return const LoginPage();
+                            },
+                          ));
+                        },
+                        child: const Text(
+                          'Sign in here!',
+                          style: TextStyle(
+                            color: Color.fromARGB(255, 136, 159, 231),
+                            fontWeight: FontWeight.bold,
+                          ),
+                        )),
                   ],
                 )
               ],
