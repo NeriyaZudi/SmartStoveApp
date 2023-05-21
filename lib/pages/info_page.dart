@@ -1,8 +1,8 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:smartStoveApp/auth/auth_service.dart';
+import 'package:smartStoveApp/components/developer_card.dart';
+import 'package:smartStoveApp/components/youtube_player.dart';
 import 'package:smartStoveApp/constants/routes.dart';
 import 'package:smartStoveApp/utilities/show_logout_dialog.dart';
 
@@ -59,33 +59,50 @@ class _InfoPageState extends State<InfoPage> {
         ],
       ),
       body: Center(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
+        child: Column(
           children: [
-            const SizedBox(width: 12),
-            buildSocialIcon(FontAwesomeIcons.github),
-            const SizedBox(width: 12),
-            buildSocialIcon(FontAwesomeIcons.linkedin),
-            const SizedBox(width: 12)
+            const SizedBox(height: 10),
+            Container(
+              width: 350,
+              decoration: BoxDecoration(
+                color: Colors.blue.shade50,
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      '🎞️ System operation and use Video 🎞️',
+                      style: GoogleFonts.lato(
+                        textStyle: const TextStyle(
+                            color: Colors.black87,
+                            fontStyle: FontStyle.italic,
+                            fontSize: 16,
+                            fontWeight: FontWeight.w700),
+                      ),
+                    ),
+                    const MyYoutubePlayer(),
+                  ],
+                ),
+              ),
+            ),
+            const SizedBox(height: 10),
+            const DeveloperCard(
+              developerName: 'Neriya Zudi',
+              developerEmail: 'neriyazudi@gmail.com',
+              developerImg: 'lib/images/neriya.jpg',
+            ),
+            const SizedBox(height: 10),
+            const DeveloperCard(
+              developerName: 'Eilon Yifrach',
+              developerEmail: 'neriyazudi@gmail.com',
+              developerImg: 'lib/images/eilon.jpg',
+            ),
           ],
         ),
       ),
     );
   }
-
-  Widget buildSocialIcon(IconData icon) => CircleAvatar(
-      radius: 25,
-      child: Material(
-        shape: const CircleBorder(),
-        clipBehavior: Clip.hardEdge,
-        color: Colors.transparent,
-        child: InkWell(
-          onTap: () {
-            print(icon.toString());
-          },
-          child: Center(
-            child: Icon(icon, size: 32),
-          ),
-        ),
-      ));
 }
