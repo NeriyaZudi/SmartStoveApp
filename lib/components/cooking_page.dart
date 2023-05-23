@@ -1,11 +1,16 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'dart:async';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bluetooth_serial/flutter_bluetooth_serial.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:smartStoveApp/components/button_widget.dart';
 import 'package:smartStoveApp/components/navigation_bar.dart';
 import 'package:smartStoveApp/pages/feedback_page.dart';
 import 'package:smartStoveApp/utilities/show_cancel_dialog.dart';
+import 'package:smartStoveApp/utilities/show_end_dialog.dart';
+import 'package:smartStoveApp/utilities/show_error_dialog.dart';
 
 class CookingPage extends StatefulWidget {
   final String title;
@@ -27,21 +32,88 @@ class CookingPage extends StatefulWidget {
 }
 
 class _CookingPageState extends State<CookingPage> {
-  static const maxSeconds = 10;
+  static const maxSeconds = 140;
   int seconds = maxSeconds;
   Duration duration = Duration();
   Timer? timer;
+  Timer? timerTemp;
   bool isActive = true;
+  BluetoothConnection? connection;
+  String macAddress = "00:22:06:30:48:2D";
+  String currentTemperature = '0.0';
+  String receivedData = '';
+
   @override
   void initState() {
     super.initState();
+    loadDevices();
     startTimer();
+    startTimerTemp();
+  }
+
+  @override
+  void dispose() {
+    startTimerTemp();
+    super.dispose();
+  }
+
+  Future<void> sendData(String data) async {
+    data = data.trim();
+
+    try {
+      List<int> list = data.codeUnits;
+      Uint8List bytes = Uint8List.fromList(list);
+      connection?.output.add(bytes);
+      await connection?.output.allSent;
+      if (kDebugMode) {
+        print('Data sent success');
+      }
+      if (data == '!') {
+        connection?.finish(); // Closing connection
+      }
+    } catch (e) {
+      print(e.toString());
+    }
+  }
+
+  Future<void> loadDevices() async {
+    Map<Permission, PermissionStatus> statuses = await [
+      Permission.location,
+      Permission.bluetooth,
+      Permission.bluetoothScan,
+      Permission.bluetoothConnect,
+      Permission.bluetoothAdvertise,
+    ].request();
+    PermissionStatus status = statuses[Permission.bluetooth]!;
+    if (status.isGranted) {
+      connectBluetooth(macAddress);
+    } else {
+      print('ERROR');
+    }
+  }
+
+  Future connectBluetooth(String address) async {
+    try {
+      BluetoothConnection connect =
+          await BluetoothConnection.toAddress(address);
+      setState(() {
+        connection = connect;
+      });
+      sendData('1');
+    } catch (exception) {
+      print('Cannot connect, exception occured\n' + exception.toString());
+      showErrorDialog(context, 'Bluetooth device connection error');
+    }
   }
 
   void startTimer() {
     timer = Timer.periodic(
       Duration(seconds: 1),
       (timer) {
+        if (seconds == 120) {
+          sendData('0');
+          showEndDialog(context);
+        }
         if (seconds > 0) {
           setState(() {
             seconds--;
@@ -51,6 +123,35 @@ class _CookingPageState extends State<CookingPage> {
         }
       },
     );
+  }
+
+  void startTimerTemp() {
+    const duration = Duration(seconds: 5);
+
+    timerTemp = Timer.periodic(duration, (Timer t) {
+      String receivedData = ''; // Variable to accumulate received data
+
+      connection!.input!.listen((Uint8List data) {
+        String newData = String.fromCharCodes(data);
+        receivedData += newData; // Accumulate received data
+
+        if (receivedData.contains('\n')) {
+          List<String> messages =
+              receivedData.split('\n'); // Split by newline character
+          receivedData = messages
+              .last; // Store any incomplete message for the next iteration
+
+          for (int i = 0; i < messages.length - 1; i++) {
+            String message = messages[i].trim();
+
+            setState(() {
+              currentTemperature =
+                  message; // Append the temperature to the current value
+            });
+          }
+        }
+      });
+    });
   }
 
   void stopTimer() {
@@ -65,6 +166,10 @@ class _CookingPageState extends State<CookingPage> {
         isActive = true;
       });
     }
+  }
+
+  void stopTimerTemp() {
+    timerTemp?.cancel();
   }
 
   void cancelTimer() async {
@@ -256,27 +361,28 @@ class _CookingPageState extends State<CookingPage> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const Text(
+                  Text(
                     'Current Temperature: ',
                     style: TextStyle(
-                      color: Colors.black,
+                      color: Colors.red.shade600,
                       fontSize: 18,
                     ),
                   ),
                   Text(
-                    widget.time,
-                    style: const TextStyle(
-                      color: Colors.blue,
+                    '$currentTemperature ° 🌡️',
+                    style: TextStyle(
+                      color: Colors.red.shade600,
+                      fontWeight: FontWeight.bold,
                       fontSize: 18,
                     ),
                   ),
                 ],
               ),
               const SizedBox(height: 15),
-              Row(
+              const Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const Text(
+                  Text(
                     'Stove State: ',
                     style: TextStyle(
                       color: Colors.black,
@@ -284,8 +390,8 @@ class _CookingPageState extends State<CookingPage> {
                     ),
                   ),
                   Text(
-                    widget.temperature,
-                    style: const TextStyle(
+                    'ON ',
+                    style: TextStyle(
                       color: Colors.blue,
                       fontSize: 18,
                     ),

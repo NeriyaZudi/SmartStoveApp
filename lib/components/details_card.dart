@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:gradient_slide_to_act/gradient_slide_to_act.dart';
-//import 'package:slide_to_act/slide_to_act.dart';
 import 'package:smartStoveApp/components/cooking_animation.dart';
+//import 'package:slide_to_act/slide_to_act.dart';
 
 class DetailsCard extends StatefulWidget {
   final int foodIndex;
@@ -213,15 +213,24 @@ class _DetailsCardState extends State<DetailsCard> {
                     ),
                     const SizedBox(height: 15),
                     Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 12),
+                      padding: const EdgeInsets.symmetric(horizontal: 8),
                       child: Center(
                         child: GradientSlideToAct(
-                          width: 400,
-                          textStyle:
-                              TextStyle(color: Colors.white, fontSize: 15),
-                          backgroundColor: Color(0Xff172663),
+                          text: '   Slide to Cooking',
+                          width: 300,
+                          textStyle: const TextStyle(
+                              color: Colors.white, fontSize: 15),
+                          backgroundColor: const Color(0Xff172663),
                           onSubmit: () {
-                            debugPrint("Submitted!");
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) {
+                                  return CookingAnimation(
+                                      foodIndex: widget.foodIndex);
+                                },
+                              ),
+                            );
                           },
                           gradient: const LinearGradient(
                               begin: Alignment.topLeft,

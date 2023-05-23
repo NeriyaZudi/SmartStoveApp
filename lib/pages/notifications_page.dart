@@ -20,7 +20,6 @@ class NotificationsPage extends StatefulWidget {
 class _NotificationsPageState extends State<NotificationsPage> {
   final Color firstColor = const Color.fromARGB(255, 223, 173, 11);
   final Color secondColor = const Color.fromARGB(255, 228, 76, 38);
-  List<BluetoothDevice> devices = [];
   BluetoothConnection? connection;
   String macAddress = "00:22:06:30:48:2D";
   dynamic currentTemperature;
