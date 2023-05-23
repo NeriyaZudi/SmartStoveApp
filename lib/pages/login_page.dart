@@ -7,6 +7,7 @@ import 'package:smartStoveApp/auth/auth_service.dart';
 import 'package:smartStoveApp/components/my_textfield.dart';
 import 'package:smartStoveApp/components/square_tile.dart';
 import 'package:smartStoveApp/constants/routes.dart';
+import 'package:smartStoveApp/pages/reset_password_page.dart';
 import 'package:smartStoveApp/utilities/show_error_dialog.dart';
 
 class LoginPage extends StatefulWidget {
@@ -117,9 +118,18 @@ class _LoginPageState extends State<LoginPage> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
-                      Text(
-                        'Forgot Password?',
-                        style: TextStyle(color: Colors.grey[600]),
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.push(context, MaterialPageRoute(
+                            builder: (context) {
+                              return const ResetPasswordPage();
+                            },
+                          ));
+                        },
+                        child: Text(
+                          'Forgot Password?',
+                          style: TextStyle(color: Colors.blue[600]),
+                        ),
                       ),
                     ],
                   ),
