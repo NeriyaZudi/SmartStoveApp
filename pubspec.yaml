@@ -50,10 +50,11 @@ dependencies:
   intl_phone_field: ^3.1.0
   google_sign_in: ^6.1.0
   google_fonts: ^4.0.4
-  slide_to_act: ^2.0.1
+  http: ">=0.13.0 <3.0.0"
+  gradient_slide_to_act: ^0.0.2
   lottie: ^2.3.2
   font_awesome_flutter: ^10.4.0
-  smooth_star_rating: ^1.1.1
+  smooth_star_rating_null_safety: ^1.0.4+2
   rating_dialog: ^2.0.4
   fl_chart: ^0.62.0
   flutter_svg: ^2.0.5

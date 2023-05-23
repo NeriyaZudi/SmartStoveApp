@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:slide_to_act/slide_to_act.dart';
+import 'package:gradient_slide_to_act/gradient_slide_to_act.dart';
+//import 'package:slide_to_act/slide_to_act.dart';
 import 'package:smartStoveApp/components/cooking_animation.dart';
 
 class DetailsCard extends StatefulWidget {
@@ -214,27 +215,45 @@ class _DetailsCardState extends State<DetailsCard> {
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 12),
                       child: Center(
-                        child: SlideAction(
-                          borderRadius: 15,
-                          height: 60,
-                          sliderButtonIcon: const Icon(Icons.swipe_right),
-                          innerColor: Colors.blue.shade200,
-                          text: '   Slide to Cooking',
-                          textStyle: const TextStyle(
-                            fontSize: 20,
-                            color: Colors.white,
-                            fontFamily: 'Montserrat',
-                            fontWeight: FontWeight.bold,
-                          ),
+                        child: GradientSlideToAct(
+                          width: 400,
+                          textStyle:
+                              TextStyle(color: Colors.white, fontSize: 15),
+                          backgroundColor: Color(0Xff172663),
                           onSubmit: () {
-                            Navigator.push(context, MaterialPageRoute(
-                              builder: (context) {
-                                return CookingAnimation(
-                                    foodIndex: widget.foodIndex);
-                              },
-                            ));
+                            debugPrint("Submitted!");
                           },
+                          gradient: const LinearGradient(
+                              begin: Alignment.topLeft,
+                              end: Alignment.bottomRight,
+                              colors: [
+                                Color(0xff0da6c2),
+                                Color(0xff0E39C6),
+                              ]),
                         ),
+                        // child: SlideAction(
+                        //   borderRadius: 15,
+                        //   height: 60,
+                        //   sliderButtonIcon: const Icon(Icons.swipe_right),
+                        //   innerColor: Colors.blue.shade200,
+                        //   text: '   Slide to Cooking',
+                        //   textStyle: const TextStyle(
+                        //     fontSize: 20,
+                        //     color: Colors.white,
+                        //     fontFamily: 'Montserrat',
+                        //     fontWeight: FontWeight.bold,
+                        //   ),
+                        //   onSubmit: () {
+                        //     Navigator.push(
+                        //       context,
+                        //       MaterialPageRoute(
+                        //         builder: (context) {
+                        //           return CookingAnimation(
+                        //               foodIndex: widget.foodIndex);
+                        //         },
+                        //       ),
+                        //     );
+                        // },
                       ),
                     ),
                   ],

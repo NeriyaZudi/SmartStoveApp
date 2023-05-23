@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:smartStoveApp/components/button_widget.dart';
 import 'package:smartStoveApp/components/feedback_animation.dart';
-import 'package:smooth_star_rating/smooth_star_rating.dart';
+import 'package:smooth_star_rating_null_safety/smooth_star_rating_null_safety.dart';
 
 class FeedbackPage extends StatefulWidget {
   final String img;
@@ -137,7 +137,7 @@ class _FeedbackPageState extends State<FeedbackPage> {
                   halfFilledIconData: Icons.star_half,
                   defaultIconData: Icons.star_border,
                   spacing: 2.0,
-                  onRated: (val) {
+                  onRatingChanged: (val) {
                     setState(() {
                       foodRating = val;
                     });
@@ -189,7 +189,7 @@ class _FeedbackPageState extends State<FeedbackPage> {
                   halfFilledIconData: Icons.star_half,
                   defaultIconData: Icons.star_border,
                   spacing: 2.0,
-                  onRated: (val) {
+                  onRatingChanged: (val) {
                     setState(() {
                       foodRating = val;
                     });
