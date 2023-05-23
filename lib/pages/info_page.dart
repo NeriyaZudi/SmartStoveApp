@@ -96,8 +96,8 @@ class _InfoPageState extends State<InfoPage> {
             ),
             const SizedBox(height: 10),
             const DeveloperCard(
-              developerName: 'Eilon Yifrach',
-              developerEmail: 'neriyazudi@gmail.com',
+              developerName: 'Elon Yifrach',
+              developerEmail: 'elonyifrah@gmail.com',
               developerImg: 'lib/images/eilon.jpg',
             ),
           ],

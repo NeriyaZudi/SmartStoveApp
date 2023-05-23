@@ -155,18 +155,20 @@ class DeveloperCard extends StatelessWidget {
   void openGitLink(int i) {
     i == 1
         ? Utils.openLink(url: 'https://github.com/NeriyaZudi')
-        : Utils.openLink(url: 'https://github.com/NeriyaZudi');
+        : Utils.openLink(url: 'https://github.com/elon11');
   }
 
   void openLinkedinLink(int i) {
     i == 1
         ? Utils.openLink(url: 'https://www.linkedin.com/in/neriyazudi/')
-        : Utils.openLink(url: 'https://www.linkedin.com/in/neriyazudi/');
+        : Utils.openLink(
+            url: 'https://www.linkedin.com/in/elon-ifrach-2b5977213/');
   }
 
   void openFacebookLink(int i) {
     i == 1
         ? Utils.openLink(url: 'https://www.facebook.com/neriyazudi')
-        : Utils.openLink(url: 'https://www.facebook.com/neriyazudi');
+        : Utils.openLink(
+            url: 'https://www.facebook.com/profile.php?id=100005280617101');
   }
 }
