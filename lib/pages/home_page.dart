@@ -88,7 +88,7 @@ class _HomePageState extends State<HomePage> {
             )
           ],
         ),
-        // message pick dish
+        // message pick food
         body: isLoad
             ? Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -97,8 +97,18 @@ class _HomePageState extends State<HomePage> {
                     child: Padding(
                       padding: const EdgeInsets.symmetric(vertical: 25.0),
                       child: Text(
-                        'Pick a dish and start cooking',
-                        style: TextStyle(color: Colors.grey[600]),
+                        'What Are You Cooking Today ?',
+                        style: TextStyle(
+                            color: Colors.blue.shade300,
+                            fontFamily: 'Ubuntu',
+                            fontSize: 22,
+                            fontWeight: FontWeight.bold,
+                            shadows: [
+                              Shadow(
+                                  color: Colors.black.withOpacity(0.1),
+                                  offset: const Offset(15, 15),
+                                  blurRadius: 15),
+                            ]),
                       ),
                     ),
                   ),

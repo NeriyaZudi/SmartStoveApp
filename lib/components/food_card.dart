@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:smartStoveApp/components/recipe_button.dart';
 import 'package:smartStoveApp/detailsPages/egg_details.dart';
 import 'package:smartStoveApp/detailsPages/pasta_details.dart';
 import 'package:smartStoveApp/detailsPages/rice_details.dart';
 import 'package:smartStoveApp/models/food.dart';
-import 'package:smartStoveApp/pages/feedback_page.dart';
 
+// ignore: must_be_immutable
 class FoodCard extends StatelessWidget {
   Food food;
   final int foodIndex;
@@ -94,8 +95,11 @@ class FoodCard extends StatelessWidget {
             //description
             Text(
               food.description,
-              style: TextStyle(color: Colors.grey[600]),
+              style: TextStyle(
+                  color: Colors.grey[600], fontFamily: 'Ubuntu', fontSize: 14),
             ),
+            const SizedBox(height: 15),
+            foodIndex != 3 ? RecipeButton(foodIndex: foodIndex) : Container(),
           ],
         ),
       ),

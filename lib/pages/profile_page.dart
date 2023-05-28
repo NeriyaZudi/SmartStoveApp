@@ -43,7 +43,7 @@ class _ProfilePageState extends State<ProfilePage> {
   String phone = '';
   String imgPath = '';
   final stove = STOVE;
-  final url = URL;
+  final url = STOVE_URL;
 
   void getUserId() async {
     User? user = auth.currentUser;

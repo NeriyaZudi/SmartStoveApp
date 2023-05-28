@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
-import 'package:smartStoveApp/components/cooking_page.dart';
 import 'package:smartStoveApp/cookingPages/egg_cooking.dart';
 import 'package:smartStoveApp/cookingPages/pasta_cooking.dart';
 import 'package:smartStoveApp/cookingPages/rice_cooking.dart';

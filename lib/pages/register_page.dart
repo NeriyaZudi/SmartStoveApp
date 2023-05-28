@@ -1,16 +1,13 @@
 // ignore_for_file: use_build_context_synchronously
-import 'dart:math';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:smartStoveApp/auth/auth_exceptions.dart';
 import 'package:smartStoveApp/auth/auth_service.dart';
 import 'package:smartStoveApp/components/my_textfield.dart';
-import 'package:smartStoveApp/components/navigation_bar.dart';
-import 'package:smartStoveApp/constants/routes.dart';
+
+import 'package:smartStoveApp/components/welcome_animation.dart';
 import 'package:smartStoveApp/pages/login_page.dart';
 import 'package:smartStoveApp/utilities/show_error_dialog.dart';
 
@@ -81,7 +78,7 @@ class _RegisterPageState extends State<RegisterPage> {
     Navigator.pop(context);
     Navigator.push(context, MaterialPageRoute(
       builder: (context) {
-        return const MyNavigationBar();
+        return WelcomeAnimation(userName: userNameController.text);
       },
     ));
   }
