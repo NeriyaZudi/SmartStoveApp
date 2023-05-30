@@ -82,11 +82,6 @@ class FoodCard extends StatelessWidget {
                               fontSize: 26,
                               fontWeight: FontWeight.bold),
                         ),
-                        const Icon(
-                          Icons.timer_outlined,
-                          color: Colors.blue,
-                          size: 26,
-                        ),
                       ])
                 ],
               ),
