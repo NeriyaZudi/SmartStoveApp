@@ -71,7 +71,7 @@ class _CookingAnimationState extends State<CookingAnimation> {
                 padding: const EdgeInsets.only(right: 15.0),
                 child: Lottie.network(
                   //'animations/cooking.json',
-                  'https://assets7.lottiefiles.com/packages/lf20_snmohqxj/lottie_step2/data.json',
+                  'https://assets4.lottiefiles.com/packages/lf20_snmohqxj/lottie_step2/data.json',
                   height: 400,
                   width: 400,
                   repeat: true,

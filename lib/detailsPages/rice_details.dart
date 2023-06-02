@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:smartStoveApp/components/details_card.dart';
 import 'package:smartStoveApp/components/details_page_generic.dart';
 
 class RiceDetails extends StatefulWidget {
@@ -43,6 +42,9 @@ class _RiceDetailsState extends State<RiceDetails> {
       img: documentSnapshot?.get('imgDetailsPage'),
       time: documentSnapshot?.get('preparationTime'),
       temperature: documentSnapshot?.get('temperature'),
+      defaultAmount: 500,
+      minAmount: 100,
+      maxAmount: 1000,
     );
   }
 }

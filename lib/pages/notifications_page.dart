@@ -212,199 +212,205 @@ class _NotificationsPageState extends State<NotificationsPage> {
                 ),
               ),
             ]),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 15),
-              child: Container(
-                width: 350,
-                decoration: BoxDecoration(
-                  color: Colors.grey.shade200,
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.all(5.0),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        'Bluetooth Connection',
-                        style: GoogleFonts.lato(
-                          textStyle: const TextStyle(
-                              color: Colors.black87,
-                              fontStyle: FontStyle.italic,
-                              fontSize: 16,
-                              fontWeight: FontWeight.w700),
-                        ),
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          ElevatedButton.icon(
-                            onPressed: () {
-                              connectBluetooth(macAddress);
-                            },
-                            icon: const Icon(Icons.bluetooth_connected),
-                            label: const Text('Connect'),
+            Center(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 15),
+                child: Container(
+                  width: 350,
+                  decoration: BoxDecoration(
+                    color: Colors.grey.shade200,
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(5.0),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          'Bluetooth Connection',
+                          style: GoogleFonts.lato(
+                            textStyle: const TextStyle(
+                                color: Colors.black87,
+                                fontStyle: FontStyle.italic,
+                                fontSize: 16,
+                                fontWeight: FontWeight.w700),
                           ),
-                          const SizedBox(width: 20),
-                          ElevatedButton.icon(
-                            onPressed: () {
-                              sendData('!');
-                            },
-                            icon: const Icon(Icons.bluetooth_disabled),
-                            label: const Text('Disconnect'),
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor:
-                                  secondColor, // Set the background color
-                              foregroundColor:
-                                  Colors.white, // Set the text color
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            ElevatedButton.icon(
+                              onPressed: () {
+                                connectBluetooth(macAddress);
+                              },
+                              icon: const Icon(Icons.bluetooth_connected),
+                              label: const Text('Connect'),
+                            ),
+                            const SizedBox(width: 20),
+                            ElevatedButton.icon(
+                              onPressed: () {
+                                sendData('!');
+                              },
+                              icon: const Icon(Icons.bluetooth_disabled),
+                              label: const Text('Disconnect'),
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor:
+                                    secondColor, // Set the background color
+                                foregroundColor:
+                                    Colors.white, // Set the text color
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            const SizedBox(height: 10),
+            Center(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 15),
+                child: Container(
+                  width: 350,
+                  decoration: BoxDecoration(
+                    color: Colors.grey.shade200,
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          'Stove Control',
+                          style: GoogleFonts.lato(
+                            textStyle: const TextStyle(
+                                color: Colors.black87,
+                                fontStyle: FontStyle.italic,
+                                fontSize: 16,
+                                fontWeight: FontWeight.w700),
+                          ),
+                        ),
+                        MySwitch(connection: connection),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            const SizedBox(height: 10),
+            Center(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 15),
+                child: Container(
+                  width: 350,
+                  decoration: BoxDecoration(
+                    color: Colors.grey.shade200,
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(5.0),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          'Manage Notifications 🔔',
+                          style: GoogleFonts.lato(
+                            textStyle: TextStyle(
+                                color: firstColor,
+                                fontStyle: FontStyle.italic,
+                                fontSize: 20,
+                                fontWeight: FontWeight.w700),
+                          ),
+                        ),
+                        CheckboxListTile(
+                          value: isfinishCookingAlert,
+                          onChanged: (value) {
+                            setState(() {
+                              isfinishCookingAlert = value!;
+                            });
+                          },
+                          activeColor: Colors.green,
+                          title: Text(
+                            'End Of Cooking',
+                            style: GoogleFonts.lato(
+                                textStyle: TextStyle(
+                                    color: secondColor,
+                                    fontStyle: FontStyle.italic,
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w700)),
+                          ),
+                          subtitle: Text(
+                            'Cooking completion alert',
+                            style: GoogleFonts.lato(
+                              textStyle: const TextStyle(
+                                  color: Colors.black87,
+                                  fontStyle: FontStyle.italic,
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w300),
                             ),
                           ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-            const SizedBox(height: 10),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 15),
-              child: Container(
-                width: 350,
-                decoration: BoxDecoration(
-                  color: Colors.grey.shade200,
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        'Stove Control',
-                        style: GoogleFonts.lato(
-                          textStyle: const TextStyle(
-                              color: Colors.black87,
-                              fontStyle: FontStyle.italic,
-                              fontSize: 16,
-                              fontWeight: FontWeight.w700),
                         ),
-                      ),
-                      MySwitch(connection: connection),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-            const SizedBox(height: 10),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 15),
-              child: Container(
-                width: 350,
-                decoration: BoxDecoration(
-                  color: Colors.grey.shade200,
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.all(5.0),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        'Manage Notifications 🔔',
-                        style: GoogleFonts.lato(
-                          textStyle: TextStyle(
-                              color: firstColor,
-                              fontStyle: FontStyle.italic,
-                              fontSize: 20,
-                              fontWeight: FontWeight.w700),
-                        ),
-                      ),
-                      CheckboxListTile(
-                        value: isfinishCookingAlert,
-                        onChanged: (value) {
-                          setState(() {
-                            isfinishCookingAlert = value!;
-                          });
-                        },
-                        activeColor: Colors.green,
-                        title: Text(
-                          'End Of Cooking',
-                          style: GoogleFonts.lato(
-                              textStyle: TextStyle(
-                                  color: secondColor,
+                        CheckboxListTile(
+                          value: isTurnOnAlert,
+                          onChanged: (value) {
+                            setState(() {
+                              isTurnOnAlert = value!;
+                            });
+                          },
+                          activeColor: Colors.green,
+                          title: Text(
+                            'Turn on the stove',
+                            style: GoogleFonts.lato(
+                                textStyle: TextStyle(
+                                    color: secondColor,
+                                    fontStyle: FontStyle.italic,
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w700)),
+                          ),
+                          subtitle: Text(
+                            'Alert when the stove turns on',
+                            style: GoogleFonts.lato(
+                              textStyle: const TextStyle(
+                                  color: Colors.black87,
                                   fontStyle: FontStyle.italic,
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.w700)),
-                        ),
-                        subtitle: Text(
-                          'Cooking completion alert',
-                          style: GoogleFonts.lato(
-                            textStyle: const TextStyle(
-                                color: Colors.black87,
-                                fontStyle: FontStyle.italic,
-                                fontSize: 14,
-                                fontWeight: FontWeight.w300),
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w300),
+                            ),
                           ),
                         ),
-                      ),
-                      CheckboxListTile(
-                        value: isTurnOnAlert,
-                        onChanged: (value) {
-                          setState(() {
-                            isTurnOnAlert = value!;
-                          });
-                        },
-                        activeColor: Colors.green,
-                        title: Text(
-                          'Turn on the stove',
-                          style: GoogleFonts.lato(
-                              textStyle: TextStyle(
-                                  color: secondColor,
+                        CheckboxListTile(
+                          value: isTurnOffAlert,
+                          onChanged: (value) {
+                            setState(() {
+                              isTurnOffAlert = value!;
+                            });
+                          },
+                          activeColor: Colors.green,
+                          title: Text(
+                            'Turn off the stove',
+                            style: GoogleFonts.lato(
+                                textStyle: TextStyle(
+                                    color: secondColor,
+                                    fontStyle: FontStyle.italic,
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w700)),
+                          ),
+                          subtitle: Text(
+                            'Alert when the stove turns off',
+                            style: GoogleFonts.lato(
+                              textStyle: const TextStyle(
+                                  color: Colors.black87,
                                   fontStyle: FontStyle.italic,
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.w700)),
-                        ),
-                        subtitle: Text(
-                          'Alert when the stove turns on',
-                          style: GoogleFonts.lato(
-                            textStyle: const TextStyle(
-                                color: Colors.black87,
-                                fontStyle: FontStyle.italic,
-                                fontSize: 14,
-                                fontWeight: FontWeight.w300),
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w300),
+                            ),
                           ),
                         ),
-                      ),
-                      CheckboxListTile(
-                        value: isTurnOffAlert,
-                        onChanged: (value) {
-                          setState(() {
-                            isTurnOffAlert = value!;
-                          });
-                        },
-                        activeColor: Colors.green,
-                        title: Text(
-                          'Turn off the stove',
-                          style: GoogleFonts.lato(
-                              textStyle: TextStyle(
-                                  color: secondColor,
-                                  fontStyle: FontStyle.italic,
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.w700)),
-                        ),
-                        subtitle: Text(
-                          'Alert when the stove turns off',
-                          style: GoogleFonts.lato(
-                            textStyle: const TextStyle(
-                                color: Colors.black87,
-                                fontStyle: FontStyle.italic,
-                                fontSize: 14,
-                                fontWeight: FontWeight.w300),
-                          ),
-                        ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
               ),

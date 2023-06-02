@@ -12,7 +12,7 @@ class _RiceCookingState extends State<RiceCooking> {
   @override
   Widget build(BuildContext context) {
     return const CookingPage(
-      title: 'Rice Details Page 🍚',
+      title: 'Rice Cooking Page 🍚',
       name: 'Rice 🍚',
       img: 'lib/images/rice.jpg',
       time: '20 minutes ⏲️',

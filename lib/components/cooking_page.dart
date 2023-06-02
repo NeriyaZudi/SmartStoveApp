@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bluetooth_serial/flutter_bluetooth_serial.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:smartStoveApp/components/button_widget.dart';
+import 'package:smartStoveApp/components/food_info.dart';
 import 'package:smartStoveApp/components/navigation_bar.dart';
 import 'package:smartStoveApp/pages/feedback_page.dart';
 import 'package:smartStoveApp/utilities/show_cancel_dialog.dart';
@@ -32,6 +33,8 @@ class CookingPage extends StatefulWidget {
 }
 
 class _CookingPageState extends State<CookingPage> {
+  final Color firstColor = const Color.fromARGB(255, 148, 179, 174);
+  final Color secondColor = const Color.fromARGB(255, 8, 67, 143);
   static const maxSeconds = 140;
   int seconds = maxSeconds;
   Duration duration = Duration();
@@ -42,6 +45,7 @@ class _CookingPageState extends State<CookingPage> {
   String macAddress = "00:22:06:30:48:2D";
   String currentTemperature = '0.0';
   String receivedData = '';
+  String stoveState = 'ON 🔛';
 
   @override
   void initState() {
@@ -111,6 +115,9 @@ class _CookingPageState extends State<CookingPage> {
       Duration(seconds: 1),
       (timer) {
         if (seconds == 120) {
+          setState(() {
+            stoveState = 'OFF 📴';
+          });
           sendData('0');
           showEndDialog(context);
         }
@@ -225,96 +232,110 @@ class _CookingPageState extends State<CookingPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.blue.shade100,
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        foregroundColor: Colors.black,
-        elevation: 0,
-        centerTitle: true,
-        iconTheme: IconThemeData(
-          color: Colors.grey[700],
+      body: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [firstColor, secondColor],
+          ),
         ),
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              widget.title,
-              style: const TextStyle(color: Colors.black),
-            ),
-          ],
-        ),
-        leading: IconButton(
-          icon: const Icon(Icons.home_rounded),
-          onPressed: () {
-            Navigator.push(context, MaterialPageRoute(
-              builder: (context) {
-                return const MyNavigationBar();
-              },
-            ));
-          },
-        ),
-      ),
-      body: Center(
-        child: Column(
-          children: [
-            ClipRRect(
-              borderRadius: BorderRadius.circular(15),
-              child: Image.asset(
-                widget.img,
-                width: 200,
-                height: 200,
-                fit: BoxFit.cover,
-              ),
-            ),
-            const SizedBox(height: 10),
-            Expanded(
-              child: Container(
-                width: double.infinity,
-                padding: const EdgeInsets.all(16),
-                decoration: BoxDecoration(
-                  color: Colors.grey.shade200,
-                  borderRadius: const BorderRadius.only(
-                    topLeft: Radius.circular(40),
-                    topRight: Radius.circular(40),
-                  ),
-                ),
-                child: Column(
+        child: Center(
+          child: Column(
+            children: [
+              const SizedBox(height: 50),
+              Center(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        const Text(
-                          'Food Type: ',
-                          style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 26,
-                              fontWeight: FontWeight.bold),
-                        ),
-                        Text(
-                          widget.name,
-                          style: const TextStyle(
-                              color: Colors.blue,
-                              fontSize: 26,
-                              fontWeight: FontWeight.bold),
-                        ),
-                      ],
+                    IconButton(
+                      icon: const Icon(Icons.home_rounded),
+                      color: Colors.white.withOpacity(0.8),
+                      onPressed: () {
+                        Navigator.push(context, MaterialPageRoute(
+                          builder: (context) {
+                            return const MyNavigationBar();
+                          },
+                        ));
+                      },
                     ),
-                    const SizedBox(height: 15),
-                    buildDetailsShow(),
-                    const SizedBox(height: 15),
-                    buildTimer(),
-                    const SizedBox(height: 30),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        buildButtons(),
-                      ],
-                    )
+                    const SizedBox(width: 50),
+                    Text(
+                      widget.title,
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                        fontFamily: 'Ubuntu',
+                      ),
+                    ),
                   ],
                 ),
               ),
-            )
-          ],
+              const SizedBox(height: 5),
+              ClipRRect(
+                borderRadius: BorderRadius.circular(15),
+                child: Image.asset(
+                  widget.img,
+                  width: 200,
+                  height: 200,
+                  fit: BoxFit.cover,
+                ),
+              ),
+              const SizedBox(height: 10),
+              Expanded(
+                child: Container(
+                  width: double.infinity,
+                  padding: const EdgeInsets.all(16),
+                  decoration: BoxDecoration(
+                    color: Colors.grey.shade200,
+                    borderRadius: const BorderRadius.only(
+                      topLeft: Radius.circular(40),
+                      topRight: Radius.circular(40),
+                    ),
+                  ),
+                  child: Column(
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const Text(
+                            'Food Type: ',
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 22,
+                              fontWeight: FontWeight.bold,
+                              fontFamily: 'Kanit',
+                            ),
+                          ),
+                          Text(
+                            widget.name,
+                            style: TextStyle(
+                              color: secondColor,
+                              fontSize: 22,
+                              fontWeight: FontWeight.bold,
+                              fontFamily: 'Kanit',
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 15),
+                      buildDetailsShow(),
+                      const SizedBox(height: 15),
+                      buildTimer(),
+                      const SizedBox(height: 20),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          buildButtons(),
+                        ],
+                      )
+                    ],
+                  ),
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );
@@ -338,16 +359,25 @@ class _CookingPageState extends State<CookingPage> {
                         style: TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.bold,
-                            color: Colors.blue.shade600),
+                            color: firstColor),
                       ),
                       const SizedBox(height: 15),
-                      ButtonWidget(
-                        text: "Give Feedback",
-                        bgcolor: Colors.blue.shade600,
-                        icon: const Icon(Icons.thumb_up),
-                        onClick: () {
-                          navigateFeedBacKPage();
-                        },
+                      Container(
+                        decoration: BoxDecoration(
+                          gradient: LinearGradient(
+                            colors: [secondColor, firstColor],
+                            begin: Alignment.topCenter,
+                            end: Alignment.bottomCenter,
+                          ),
+                        ),
+                        child: ButtonWidget(
+                          text: "Give Feedback",
+                          bgcolor: Colors.transparent,
+                          icon: const Icon(Icons.thumb_up),
+                          onClick: () {
+                            navigateFeedBacKPage();
+                          },
+                        ),
                       ),
                       const SizedBox(height: 10),
                     ],
@@ -358,46 +388,54 @@ class _CookingPageState extends State<CookingPage> {
           )
         : Column(
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    'Current Temperature: ',
-                    style: TextStyle(
-                      color: Colors.red.shade600,
-                      fontSize: 18,
-                    ),
-                  ),
-                  Text(
-                    '$currentTemperature ° 🌡️',
-                    style: TextStyle(
-                      color: Colors.red.shade600,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 18,
-                    ),
-                  ),
-                ],
+              FoodInfo(
+                text: 'Current Temperature:   $currentTemperature 🌡️',
+                icon: Icons.whatshot,
               ),
-              const SizedBox(height: 15),
-              const Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    'Stove State: ',
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 18,
-                    ),
-                  ),
-                  Text(
-                    'ON ',
-                    style: TextStyle(
-                      color: Colors.blue,
-                      fontSize: 18,
-                    ),
-                  ),
-                ],
+              FoodInfo(
+                text: 'Stove State:   $stoveState',
+                icon: Icons.toggle_on,
               ),
+              // Row(
+              //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              //   children: [
+              //     Text(
+              //       'Current Temperature: ',
+              //       style: TextStyle(
+              //         color: Colors.red.shade600,
+              //         fontSize: 18,
+              //       ),
+              //     ),
+              //     Text(
+              //       '$currentTemperature ° 🌡️',
+              //       style: TextStyle(
+              //         color: Colors.red.shade600,
+              //         fontWeight: FontWeight.bold,
+              //         fontSize: 18,
+              //       ),
+              //     ),
+              //   ],
+              // ),
+              // const SizedBox(height: 15),
+              // const Row(
+              //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              //   children: [
+              //     Text(
+              //       'Stove State: ',
+              //       style: TextStyle(
+              //         color: Colors.black,
+              //         fontSize: 18,
+              //       ),
+              //     ),
+              //     Text(
+              //       'ON ',
+              //       style: TextStyle(
+              //         color: Colors.blue,
+              //         fontSize: 18,
+              //       ),
+              //     ),
+              //   ],
+              // ),
             ],
           );
   }
@@ -432,33 +470,52 @@ class _CookingPageState extends State<CookingPage> {
         ? Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              ButtonWidget(
-                text: isActive ? 'Pause' : 'Resume',
-                bgcolor: Colors.blue.shade600,
-                icon: isActive
-                    ? const Icon(Icons.pause)
-                    : const Icon(Icons.play_circle),
-                onClick: () {
-                  stopTimer();
-                },
+              Container(
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    colors: [secondColor, firstColor],
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                  ),
+                ),
+                child: ButtonWidget(
+                  text: isActive ? 'Pause' : 'Resume',
+                  bgcolor: Colors.transparent, // Set bgcolor to transparent
+                  icon: isActive
+                      ? const Icon(Icons.pause)
+                      : const Icon(Icons.play_circle),
+                  onClick: () {
+                    stopTimer();
+                  },
+                ),
               ),
               const SizedBox(width: 30),
-              ButtonWidget(
-                text: 'Stop',
-                bgcolor: Colors.red.shade500,
-                icon: const Icon(Icons.stop),
-                onClick: () {
-                  cancelTimer();
-                },
+              Container(
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    colors: [
+                      const Color.fromARGB(255, 244, 168, 54),
+                      Colors.red.shade400
+                    ],
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                  ),
+                ),
+                child: ButtonWidget(
+                  text: 'Stop',
+                  bgcolor: Colors.transparent, // Set bgcolor to transparent
+                  icon: const Icon(Icons.stop),
+                  onClick: () {
+                    cancelTimer();
+                  },
+                ),
               ),
             ],
           )
-        : const Text(
+        : Text(
             'DONE',
             style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.w500,
-                color: Colors.greenAccent),
+                fontSize: 20, fontWeight: FontWeight.w500, color: secondColor),
           );
   }
 
@@ -471,8 +528,8 @@ class _CookingPageState extends State<CookingPage> {
         children: [
           CircularProgressIndicator(
             value: 1 - seconds / maxSeconds,
-            valueColor: const AlwaysStoppedAnimation(Colors.greenAccent),
-            backgroundColor: Colors.blue[500],
+            valueColor: AlwaysStoppedAnimation(firstColor),
+            backgroundColor: secondColor,
             strokeWidth: 16,
           ),
           Center(child: buildTime()),
@@ -484,13 +541,11 @@ class _CookingPageState extends State<CookingPage> {
   Widget buildTime() {
     String timeStr = formatedTime(timeInSecond: seconds);
     return seconds == 0
-        ? const Icon(Icons.done, color: Colors.greenAccent, size: 110)
+        ? Icon(Icons.done, color: secondColor, size: 110)
         : Text(
             timeStr,
             style: TextStyle(
-                fontWeight: FontWeight.bold,
-                color: Colors.blue[500],
-                fontSize: 55),
+                fontWeight: FontWeight.bold, color: secondColor, fontSize: 55),
           );
   }
 

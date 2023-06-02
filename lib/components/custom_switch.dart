@@ -20,8 +20,8 @@ class _CustomSwitchState extends State<CustomSwitch> {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20.0),
           color: widget.toggleValue
-              ? const Color.fromARGB(255, 223, 173, 11)
-              : const Color.fromARGB(255, 228, 76, 38),
+              ? const Color.fromRGBO(255, 215, 64, 1)
+              : Colors.white.withOpacity(0.3),
         ),
         child: Stack(
           children: <Widget>[

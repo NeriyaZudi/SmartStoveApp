@@ -90,6 +90,10 @@ flutter:
     - family: Ubuntu
       fonts:
         - asset: assets/Ubuntu-Medium.ttf
+    - family: Kanit
+      fonts:
+        - asset: assets/Kanit-Regular.ttf
+        - asset: assets/Kanit-Bold.ttf
     - family: WixMadeforDisplay
       fonts:
         - asset: assets/WixMadeforDisplay-Regular.ttf

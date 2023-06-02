@@ -7,7 +7,7 @@ class EggCooking extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const CookingPage(
-      title: 'Egg Details Page 🥚',
+      title: 'Egg Cooking Page 🥚',
       name: 'Egg 🥚',
       img: 'lib/images/egg.jpg',
       time: '10 minutes ⏲️',

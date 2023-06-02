@@ -37,7 +37,7 @@ class _FeedbackPageState extends State<FeedbackPage> {
                 clipper: MyClipper(),
                 child: Container(
                   width: double.infinity,
-                  height: 310,
+                  height: 345,
                   decoration: BoxDecoration(
                       gradient: LinearGradient(colors: [
                         firstColor,
@@ -213,10 +213,11 @@ class _FeedbackPageState extends State<FeedbackPage> {
                             style: const TextStyle(
                               color: Colors.black,
                               fontSize: 12,
+                              fontFamily: 'Ubuntu',
                             ),
                             maxLines: 1,
                             decoration: const InputDecoration(
-                              hintText: '🖊️ Leave Your Comment Here...',
+                              hintText: '   🖊️   Leave Your Comment Here...',
                             ),
                           ),
                         ),
@@ -225,14 +226,24 @@ class _FeedbackPageState extends State<FeedbackPage> {
                   ],
                 ),
                 const SizedBox(height: 15),
-                ButtonWidget(
-                  text: "Send Feedback",
-                  bgcolor: Colors.blue.shade600,
-                  icon: const Icon(Icons.send),
-                  onClick: () {
-                    Navigator.of(context).pushReplacement(MaterialPageRoute(
-                        builder: (context) => const FeedbackAnimation()));
-                  },
+                Container(
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      colors: [secondColor, firstColor],
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                    ),
+                  ),
+                  child: ButtonWidget(
+                    text: "Send Feedback",
+                    bgcolor: Colors.transparent,
+                    icon: const Icon(Icons.send),
+                    onClick: () {
+                      Navigator.of(context).pushReplacement(MaterialPageRoute(
+                        builder: (context) => const FeedbackAnimation(),
+                      ));
+                    },
+                  ),
                 ),
               ],
             ),
@@ -263,7 +274,7 @@ class _FeedbackPageState extends State<FeedbackPage> {
               ),
               const Positioned(
                 top: 68,
-                left: 220,
+                left: 260,
                 child: CircleAvatar(
                   radius: 55,
                   backgroundColor: Colors.transparent,

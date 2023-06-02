@@ -1,6 +1,10 @@
 // ignore_for_file: import_of_legacy_library_into_null_safe
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:gradient_slide_to_act/gradient_slide_to_act.dart';
+import 'package:smartStoveApp/components/cooking_animation.dart';
 import 'package:smartStoveApp/components/custom_switch.dart';
 import 'package:smartStoveApp/components/food_info.dart';
 import 'package:smartStoveApp/utilities/utils.dart';
@@ -12,6 +16,9 @@ class DetailsPage extends StatefulWidget {
   final String img;
   final String time;
   final String temperature;
+  final double defaultAmount;
+  final double minAmount;
+  final double maxAmount;
   DetailsPage({
     super.key,
     required this.foodIndex,
@@ -20,6 +27,9 @@ class DetailsPage extends StatefulWidget {
     required this.img,
     required this.time,
     required this.temperature,
+    required this.defaultAmount,
+    required this.minAmount,
+    required this.maxAmount,
   });
 
   @override
@@ -30,17 +40,26 @@ class _DetailsPageState extends State<DetailsPage> {
   final Color firstColor = const Color.fromARGB(255, 148, 179, 174);
   final Color secondColor = const Color.fromARGB(255, 8, 67, 143);
   final Color thirdColor = const Color.fromARGB(255, 40, 126, 238);
-  bool onValue = false;
-  bool offValue = false;
-  double riceAmountValue = 500;
+  bool onValue = true;
+  bool offValue = true;
+  double amountValue = 2;
   double waterAmountValue = 1600;
   int heatLevel = 1;
   bool isCover = false;
   bool isMixing = false;
-  final double riceAmountMin = 100;
-  final double riceAmountMax = 1000;
+  String resultValue = 'Well';
+  double amountMin = 100;
+  double amountMax = 1000;
   final double waterAmountMin = 500;
   final double waterAmountMax = 3000;
+
+  @override
+  void initState() {
+    amountValue = widget.defaultAmount;
+    amountMin = widget.minAmount;
+    amountMax = widget.maxAmount;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -203,7 +222,8 @@ class _DetailsPageState extends State<DetailsPage> {
               ),
               Switch(
                 value: onValue,
-                activeColor: Colors.white,
+                activeColor: thirdColor,
+                activeTrackColor: thirdColor,
                 onChanged: (onChanged) {
                   setState(() {
                     onValue = onChanged;
@@ -227,7 +247,8 @@ class _DetailsPageState extends State<DetailsPage> {
               ),
               Switch(
                 value: offValue,
-                activeColor: Colors.white,
+                activeColor: thirdColor,
+                activeTrackColor: thirdColor,
                 onChanged: (onChanged) {
                   setState(() {
                     offValue = onChanged;
@@ -275,6 +296,8 @@ class _DetailsPageState extends State<DetailsPage> {
           buildWaterAmountSlider(),
           buildHeatLevelSlider(),
           buildSwitches(),
+          buildResultPickList(),
+          buildSlideToCook(),
         ],
       ),
     );
@@ -303,7 +326,7 @@ class _DetailsPageState extends State<DetailsPage> {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Text(
-          'Amount of ${widget.name} : ${riceAmountValue.round()}g',
+          'Amount of ${widget.name} : ${amountValue.round()}g',
           style: GoogleFonts.lato(
             textStyle: const TextStyle(
               color: Colors.white,
@@ -314,28 +337,28 @@ class _DetailsPageState extends State<DetailsPage> {
         ),
         Row(
           children: [
-            buildSideLabel(riceAmountMin, true),
+            buildSideLabel(amountMin, true),
             Expanded(
               child: SliderTheme(
                 data: const SliderThemeData(
                   valueIndicatorColor: Colors.amberAccent,
                 ),
                 child: Slider(
-                  value: riceAmountValue,
-                  min: riceAmountMin,
-                  max: riceAmountMax,
+                  value: amountValue,
+                  min: amountMin,
+                  max: amountMax,
                   activeColor: Colors.amberAccent,
                   inactiveColor: Colors.white24,
                   divisions: 1000,
                   thumbColor: Colors.amberAccent,
-                  label: '${riceAmountValue.round()}g',
+                  label: '${amountValue.round()}g',
                   onChanged: (value) => setState(() {
-                    riceAmountValue = value;
+                    amountValue = value;
                   }),
                 ),
               ),
             ),
-            buildSideLabel(riceAmountMax, true),
+            buildSideLabel(amountMax, true),
           ],
         ),
       ],
@@ -358,7 +381,7 @@ class _DetailsPageState extends State<DetailsPage> {
         ),
         Row(
           children: [
-            buildSideLabel(riceAmountMin, false),
+            buildSideLabel(amountMin, false),
             Expanded(
               child: SliderTheme(
                 data: const SliderThemeData(
@@ -379,7 +402,7 @@ class _DetailsPageState extends State<DetailsPage> {
                 ),
               ),
             ),
-            buildSideLabel(riceAmountMax, false),
+            buildSideLabel(amountMax, false),
           ],
         ),
       ],
@@ -509,6 +532,58 @@ class _DetailsPageState extends State<DetailsPage> {
     );
   }
 
+  Widget buildResultPickList() {
+    final options = ['Rair', 'Medium', 'Well', 'Welldone'];
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(
+            'Cooking Result 👨‍🍳: $resultValue',
+            style: GoogleFonts.lato(
+              textStyle: const TextStyle(
+                color: Colors.white,
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+          const SizedBox(height: 5),
+          Container(
+            padding: const EdgeInsets.only(left: 24, right: 24),
+            decoration: BoxDecoration(
+              border: Border.all(color: Colors.white, width: 1),
+              borderRadius: BorderRadius.circular(15),
+            ),
+            child: DropdownButton(
+              hint: Text(resultValue),
+              icon: const Icon(Icons.arrow_drop_down),
+              iconSize: 36,
+              iconEnabledColor: Colors.white,
+              dropdownColor: Color.fromARGB(255, 87, 150, 233),
+              underline: const SizedBox(),
+              style: const TextStyle(
+                  color: Colors.white, fontWeight: FontWeight.bold),
+              value: resultValue,
+              items: options.map((valueItem) {
+                return DropdownMenuItem(
+                  value: valueItem,
+                  child: Text(valueItem),
+                );
+              }).toList(),
+              onChanged: (value) {
+                setState(() {
+                  resultValue = value!;
+                });
+              },
+            ),
+          )
+        ],
+      ),
+    );
+  }
+
   Widget buildLabels({required String label, required Color color}) {
     return Container(
       child: Text(
@@ -518,6 +593,85 @@ class _DetailsPageState extends State<DetailsPage> {
             .copyWith(color: color),
       ),
     );
+  }
+
+  buildSlideToCook() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 12),
+      child: Center(
+        child: GradientSlideToAct(
+          text: '   Slide to Cooking',
+          width: 400,
+          textStyle: const TextStyle(color: Colors.white, fontSize: 15),
+          backgroundColor: const Color(0Xff172663),
+          onSubmit: () {
+            saveCookingParams(context, widget.foodIndex, amountValue,
+                waterAmountValue, heatLevel, isCover, isMixing, resultValue);
+          },
+          gradient: const LinearGradient(
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+              colors: [
+                Color(0xff0da6c2),
+                Color(0xff0E39C6),
+              ]),
+        ),
+      ),
+    );
+  }
+}
+
+void saveCookingParams(
+  BuildContext context,
+  int foodIndex,
+  double amountValue,
+  double waterAmountValue,
+  int heatLevel,
+  bool isCover,
+  bool isMixing,
+  String resultValue,
+) {
+  Map<String, dynamic> jsonData = {
+    'totaltime': null,
+    'staytime': null,
+    'temperature': '300',
+    'waterAmount': waterAmountValue,
+    'amount': amountValue,
+    'cover': isCover,
+    'heatLevel': heatLevel,
+    'mixing': isMixing,
+    'waterInitTemp': '1',
+    'resultValue': resultConvert(resultValue),
+  };
+
+// Convert the map to a JSON string
+  String jsonString = jsonEncode(jsonData);
+
+// Output the JSON string
+  print(jsonString);
+
+  Navigator.push(
+    context,
+    MaterialPageRoute(
+      builder: (context) {
+        return CookingAnimation(foodIndex: foodIndex);
+      },
+    ),
+  );
+}
+
+String resultConvert(String result) {
+  switch (result) {
+    case 'Rair':
+      return '0';
+    case 'Medium':
+      return '1';
+    case 'Well':
+      return '2';
+    case 'Welldone':
+      return '3';
+    default:
+      return '2';
   }
 }
 
