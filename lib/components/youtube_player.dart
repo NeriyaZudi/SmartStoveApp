@@ -10,7 +10,7 @@ class MyYoutubePlayer extends StatefulWidget {
 
 class _MyYoutubePlayerState extends State<MyYoutubePlayer> {
   final videoURL =
-      'https://www.youtube.com/watch?v=YMx8Bbev6T4&ab_channel=FlutterUIDev';
+      'https://www.youtube.com/watch?v=JL5NMI4YSyA&ab_channel=%D7%A0%D7%A8%D7%99%D7%94%D7%96%D7%95%D7%93%D7%99';
   late YoutubePlayerController youtubeController;
 
   @override

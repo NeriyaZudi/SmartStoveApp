@@ -18,6 +18,8 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
+  final Color firstColor = const Color.fromARGB(255, 148, 179, 174);
+  final Color secondColor = const Color.fromARGB(255, 8, 67, 143);
   final double coverHeight = 250;
   final double profileHeight = 144;
   String? userUid;
@@ -160,59 +162,89 @@ class _ProfilePageState extends State<ProfilePage> {
 
   Widget buildContent() {
     return SingleChildScrollView(
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 48),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Text(
-              userName,
-              style: const TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
+      child: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 48),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text(
+                  userName,
+                  style: const TextStyle(
+                      fontSize: 28, fontWeight: FontWeight.bold),
+                ),
+                const SizedBox(height: 15),
+                InfoCard(
+                    text: phone, icon: Icons.phone, onPressed: () async {}),
+                InfoCard(
+                    text: email, icon: Icons.email, onPressed: () async {}),
+                InfoCard(
+                    text: stove,
+                    icon: Icons.fireplace,
+                    onPressed: () => Utils.openLink(url: url)),
+                const SizedBox(height: 20),
+              ],
             ),
-            const SizedBox(height: 15),
-            InfoCard(text: phone, icon: Icons.phone, onPressed: () async {}),
-            InfoCard(text: email, icon: Icons.email, onPressed: () async {}),
-            InfoCard(
-                text: stove,
-                icon: Icons.fireplace,
-                onPressed: () => Utils.openLink(url: url)),
-            const SizedBox(height: 20),
-            Text(
-              'Segmentation of usage percentages by food type',
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                color: Colors.blue[500],
-                fontSize: 22,
-                fontWeight: FontWeight.bold,
-                fontFamily: 'Ubuntu',
+          ),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                width: 350,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(12),
+                    gradient:
+                        LinearGradient(colors: [secondColor, firstColor])),
+                child: const Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: Text(
+                    'Segmentation of usage percentages by food type',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 18,
+                      fontFamily: 'Kanit',
+                    ),
+                  ),
+                ),
               ),
-            ),
-            const SizedBox(height: 10),
-            const SizedBox(
-              height: 200,
-              child: PieChartFoods(),
-            ),
-            const SizedBox(height: 50),
-            Text(
-              'Electricity consumption when using stoves',
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                color: Colors.blue[500],
-                fontSize: 22,
-                fontWeight: FontWeight.bold,
-                fontFamily: 'Ubuntu',
+              const SizedBox(height: 12),
+              const SizedBox(
+                height: 200,
+                child: PieChartFoods(),
               ),
-            ),
-            const SizedBox(height: 10),
-            SizedBox(
-              height: 200,
-              width: double.infinity,
-              child: MyBarGraph(
-                weeklyConsumption: weeklyConsumption,
+              const SizedBox(height: 50),
+              Container(
+                width: 350,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(12),
+                    gradient:
+                        LinearGradient(colors: [secondColor, firstColor])),
+                child: const Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: Text(
+                    'Electricity consumption when using stoves',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 18,
+                      fontFamily: 'Kanit',
+                    ),
+                  ),
+                ),
               ),
-            )
-          ],
-        ),
+              const SizedBox(height: 15),
+              SizedBox(
+                height: 200,
+                width: double.infinity,
+                child: MyBarGraph(
+                  weeklyConsumption: weeklyConsumption,
+                ),
+              )
+            ],
+          )
+        ],
       ),
     );
   }

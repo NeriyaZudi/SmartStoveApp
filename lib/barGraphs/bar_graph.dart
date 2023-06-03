@@ -8,6 +8,8 @@ class MyBarGraph extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    const Color firstColor = Color.fromARGB(255, 148, 179, 174);
+    const Color secondColor = Color.fromARGB(255, 8, 67, 143);
     BarData data = BarData(
       janAmount: weeklyConsumption[0],
       febAmount: weeklyConsumption[1],
@@ -51,8 +53,9 @@ class MyBarGraph extends StatelessWidget {
                       backDrawRodData: BackgroundBarChartRodData(
                         show: true,
                         toY: 100,
-                        color: Colors.grey[200],
+                        color: firstColor,
                       ),
+                      color: secondColor,
                     ),
                   ],
                 ))
@@ -66,8 +69,8 @@ class MyBarGraph extends StatelessWidget {
               final tapStr = '${rod.toY.round()}%';
               return BarTooltipItem(
                   tapStr,
-                  TextStyle(
-                    color: Colors.blue.shade600,
+                  const TextStyle(
+                    color: secondColor,
                     fontSize: 9,
                     fontWeight: FontWeight.bold,
                   ));
@@ -80,8 +83,10 @@ class MyBarGraph extends StatelessWidget {
 }
 
 Widget getBottomTitels(double value, TitleMeta meta) {
-  final style = TextStyle(
-    color: Colors.blue[400],
+  const Color firstColor = Color.fromARGB(255, 148, 179, 174);
+  const Color secondColor = Color.fromARGB(255, 8, 67, 143);
+  const style = TextStyle(
+    color: secondColor,
     fontWeight: FontWeight.bold,
     fontSize: 8,
   );

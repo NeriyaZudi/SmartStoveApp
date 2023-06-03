@@ -16,12 +16,16 @@ class DeveloperCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    const Color firstColor = Color.fromARGB(255, 148, 179, 174);
+    const Color secondColor = Color.fromARGB(255, 8, 67, 143);
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 10),
       child: Container(
         width: 350,
         decoration: BoxDecoration(
-          color: Colors.green.shade100,
+          gradient: developerName == 'Neriya Zudi'
+              ? const LinearGradient(colors: [secondColor, firstColor])
+              : const LinearGradient(colors: [firstColor, secondColor]),
           borderRadius: BorderRadius.circular(12),
         ),
         child: Padding(
@@ -43,7 +47,7 @@ class DeveloperCard extends StatelessWidget {
                             developerName,
                             textAlign: TextAlign.start,
                             style: const TextStyle(
-                              color: Colors.black87,
+                              color: Colors.white,
                               fontSize: 16,
                               fontWeight: FontWeight.w700,
                               fontFamily: 'Ubuntu',
@@ -53,7 +57,7 @@ class DeveloperCard extends StatelessWidget {
                           Text(
                             developerEmail,
                             style: const TextStyle(
-                              color: Colors.black87,
+                              color: Colors.white,
                               fontSize: 12,
                               fontWeight: FontWeight.w400,
                               fontFamily: 'Ubuntu',
@@ -108,7 +112,7 @@ class DeveloperCard extends StatelessWidget {
                             developerName,
                             textAlign: TextAlign.start,
                             style: const TextStyle(
-                              color: Colors.black87,
+                              color: Colors.white,
                               fontSize: 16,
                               fontWeight: FontWeight.w700,
                               fontFamily: 'Ubuntu',
@@ -118,7 +122,7 @@ class DeveloperCard extends StatelessWidget {
                           Text(
                             developerEmail,
                             style: const TextStyle(
-                              color: Colors.black87,
+                              color: Colors.white,
                               fontSize: 12,
                               fontWeight: FontWeight.w400,
                               fontFamily: 'Ubuntu',
