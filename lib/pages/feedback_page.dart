@@ -191,7 +191,7 @@ class _FeedbackPageState extends State<FeedbackPage> {
                   spacing: 2.0,
                   onRatingChanged: (val) {
                     setState(() {
-                      foodRating = val;
+                      appRating = val;
                     });
                   },
                 ),

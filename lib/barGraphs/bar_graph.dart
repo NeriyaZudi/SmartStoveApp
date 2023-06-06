@@ -83,7 +83,6 @@ class MyBarGraph extends StatelessWidget {
 }
 
 Widget getBottomTitels(double value, TitleMeta meta) {
-  const Color firstColor = Color.fromARGB(255, 148, 179, 174);
   const Color secondColor = Color.fromARGB(255, 8, 67, 143);
   const style = TextStyle(
     color: secondColor,

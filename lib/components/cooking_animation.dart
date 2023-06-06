@@ -7,7 +7,14 @@ import 'package:smartStoveApp/cookingPages/rice_cooking.dart';
 
 class CookingAnimation extends StatefulWidget {
   final int foodIndex;
-  const CookingAnimation({super.key, required this.foodIndex});
+  final int totalTime;
+  final int turnOffTime;
+  const CookingAnimation({
+    super.key,
+    required this.foodIndex,
+    required this.totalTime,
+    required this.turnOffTime,
+  });
 
   @override
   State<CookingAnimation> createState() => _CookingAnimationState();
@@ -22,16 +29,25 @@ class _CookingAnimationState extends State<CookingAnimation> {
     Timer(const Duration(seconds: 4), () {
       switch (widget.foodIndex) {
         case 0:
-          Navigator.of(context).pushReplacement(
-              MaterialPageRoute(builder: (context) => const RiceCooking()));
+          Navigator.of(context).pushReplacement(MaterialPageRoute(
+              builder: (context) => RiceCooking(
+                    totalTime: widget.totalTime,
+                    turnOffTime: widget.turnOffTime,
+                  )));
           break;
         case 1:
-          Navigator.of(context).pushReplacement(
-              MaterialPageRoute(builder: (context) => const EggCooking()));
+          Navigator.of(context).pushReplacement(MaterialPageRoute(
+              builder: (context) => EggCooking(
+                    totalTime: widget.totalTime,
+                    turnOffTime: widget.turnOffTime,
+                  )));
           break;
         case 2:
-          Navigator.of(context).pushReplacement(
-              MaterialPageRoute(builder: (context) => const PastaCooking()));
+          Navigator.of(context).pushReplacement(MaterialPageRoute(
+              builder: (context) => PastaCooking(
+                    totalTime: widget.totalTime,
+                    turnOffTime: widget.turnOffTime,
+                  )));
           break;
         default:
       }

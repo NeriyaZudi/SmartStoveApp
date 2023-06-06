@@ -1,13 +1,14 @@
-// ignore_for_file: import_of_legacy_library_into_null_safe
+// ignore_for_file: import_of_legacy_library_into_null_safe, use_build_context_synchronously
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:gradient_slide_to_act/gradient_slide_to_act.dart';
+import 'package:lottie/lottie.dart';
 import 'package:smartStoveApp/components/cooking_animation.dart';
 import 'package:smartStoveApp/components/custom_switch.dart';
 import 'package:smartStoveApp/components/food_info.dart';
 import 'package:smartStoveApp/utilities/utils.dart';
+import 'package:http/http.dart' as http;
 
 class DetailsPage extends StatefulWidget {
   final int foodIndex;
@@ -52,6 +53,7 @@ class _DetailsPageState extends State<DetailsPage> {
   double amountMax = 1000;
   final double waterAmountMin = 500;
   final double waterAmountMax = 3000;
+  bool isWatingModel = false;
 
   @override
   void initState() {
@@ -278,28 +280,40 @@ class _DetailsPageState extends State<DetailsPage> {
           end: Alignment.bottomRight,
         ),
       ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          const SizedBox(height: 8),
-          Text(
-            'Cooking Parameters',
-            style: GoogleFonts.lato(
-              textStyle: const TextStyle(
-                  color: Colors.amberAccent,
-                  fontSize: 20,
-                  fontWeight: FontWeight.w700),
+      child: !isWatingModel
+          ? Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const SizedBox(height: 8),
+                Text(
+                  'Cooking Parameters',
+                  style: GoogleFonts.lato(
+                    textStyle: const TextStyle(
+                        color: Colors.amberAccent,
+                        fontSize: 20,
+                        fontWeight: FontWeight.w700),
+                  ),
+                ),
+                const SizedBox(height: 10),
+                buildAmountSlider(),
+                buildWaterAmountSlider(),
+                buildHeatLevelSlider(),
+                buildSwitches(),
+                buildResultPickList(),
+                buildSlideToCook(),
+              ],
+            )
+          : Padding(
+              padding: const EdgeInsets.only(right: 15.0),
+              child: Lottie.network(
+                //'animations/cooking.json',
+                'https://assets6.lottiefiles.com/private_files/lf30_m075yjya.json',
+                height: 400,
+                width: 400,
+                repeat: true,
+                fit: BoxFit.contain,
+              ),
             ),
-          ),
-          const SizedBox(height: 10),
-          buildAmountSlider(),
-          buildWaterAmountSlider(),
-          buildHeatLevelSlider(),
-          buildSwitches(),
-          buildResultPickList(),
-          buildSlideToCook(),
-        ],
-      ),
     );
   }
 
@@ -506,6 +520,7 @@ class _DetailsPageState extends State<DetailsPage> {
             const SizedBox(height: 4),
             CustomSwitch(
               toggleValue: isCover,
+              onChanged: handleCoverChange,
             ),
           ],
         ),
@@ -525,6 +540,7 @@ class _DetailsPageState extends State<DetailsPage> {
             const SizedBox(height: 4),
             CustomSwitch(
               toggleValue: isMixing,
+              onChanged: handleMixingChange,
             ),
           ],
         )
@@ -619,60 +635,118 @@ class _DetailsPageState extends State<DetailsPage> {
       ),
     );
   }
-}
 
-void saveCookingParams(
-  BuildContext context,
-  int foodIndex,
-  double amountValue,
-  double waterAmountValue,
-  int heatLevel,
-  bool isCover,
-  bool isMixing,
-  String resultValue,
-) {
-  Map<String, dynamic> jsonData = {
-    'totaltime': null,
-    'staytime': null,
-    'temperature': '300',
-    'waterAmount': waterAmountValue,
-    'amount': amountValue,
-    'cover': isCover,
-    'heatLevel': heatLevel,
-    'mixing': isMixing,
-    'waterInitTemp': '1',
-    'resultValue': resultConvert(resultValue),
-  };
+  handleCoverChange(bool p1) {
+    setState(() {
+      isCover = p1;
+    });
+  }
+
+  handleMixingChange(bool p1) {
+    setState(() {
+      isMixing = p1;
+    });
+  }
+
+  Future<void> saveCookingParams(
+    BuildContext context,
+    int foodIndex,
+    double amountValue,
+    double waterAmountValue,
+    int heatLevel,
+    bool isCover,
+    bool isMixing,
+    String resultValue,
+  ) async {
+    Map<String, dynamic> jsonData = {
+      'totaltime': null,
+      'staytime': null,
+      'temperature': 400,
+      'waterAmount': waterAmountValue.round().toInt(),
+      'amount': amountConvert(amountValue, foodIndex),
+      'cover': isCover ? 1 : 0,
+      'heatLevel': heatLevel,
+      'mixing': isMixing ? 1 : 0,
+      'waterInitTemp': 1,
+      'result': resultConvert(resultValue),
+    };
+
+    print(jsonData);
 
 // Convert the map to a JSON string
-  String jsonString = jsonEncode(jsonData);
+    String jsonString = jsonEncode(jsonData);
 
-// Output the JSON string
-  print(jsonString);
+    // Send the POST request to the Flask server
+    String url = 'http://192.168.1.104:5000/predict';
+    setState(() {
+      isWatingModel = true;
+    });
+    http.Response response = await http.post(
+      Uri.parse(url),
+      body: jsonString,
+      headers: {'Content-Type': 'application/json'},
+    );
 
-  Navigator.push(
-    context,
-    MaterialPageRoute(
-      builder: (context) {
-        return CookingAnimation(foodIndex: foodIndex);
-      },
-    ),
-  );
+    if (response.statusCode == 200) {
+      // Request succeeded, process the response
+      Map<String, dynamic> result = jsonDecode(response.body);
+      double predictedTotalTime = result['totaltime'];
+      double predictedStayTime = result['staytime'];
+      int totalCookingTime = predictedTotalTime.round().toInt();
+      int turnOffStoveTime = predictedStayTime.round().toInt();
+
+      print(
+          'Total Time is $totalCookingTime and the Stay Time is $turnOffStoveTime');
+      setState(() {
+        isWatingModel = false;
+      });
+      moveToCookingPage(context, totalCookingTime, turnOffStoveTime);
+    } else {
+      // Request failed, handle the error
+      print('Request failed with status code: ${response.statusCode}');
+    }
+  }
+
+  void moveToCookingPage(
+      BuildContext context, int totalCookingTime, int turnOffStoveTime) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) {
+          return CookingAnimation(
+            foodIndex: widget.foodIndex,
+            totalTime: totalCookingTime,
+            turnOffTime: turnOffStoveTime,
+          );
+        },
+      ),
+    );
+  }
 }
 
-String resultConvert(String result) {
+int resultConvert(String result) {
   switch (result) {
     case 'Rair':
-      return '0';
+      return 0;
     case 'Medium':
-      return '1';
+      return 1;
     case 'Well':
-      return '2';
+      return 2;
     case 'Welldone':
-      return '3';
+      return 3;
     default:
-      return '2';
+      return 2;
   }
+}
+
+int amountConvert(double amount, int foodIndex) {
+  int result;
+  if (foodIndex == 1) {
+    result = amount.round().toInt() * 70;
+  } else {
+    result = amount.round().toInt();
+  }
+  return result;
 }
 
 class MyClipper extends CustomClipper<Path> {

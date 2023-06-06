@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 // ignore: must_be_immutable
 class CustomSwitch extends StatefulWidget {
   bool toggleValue;
-  CustomSwitch({super.key, required this.toggleValue});
+  final Function(bool) onChanged;
+  CustomSwitch({super.key, required this.toggleValue, required this.onChanged});
 
   @override
   State<CustomSwitch> createState() => _CustomSwitchState();
@@ -67,5 +68,7 @@ class _CustomSwitchState extends State<CustomSwitch> {
     setState(() {
       widget.toggleValue = !widget.toggleValue;
     });
+    // Call the onChanged callback function
+    widget.onChanged(widget.toggleValue);
   }
 }

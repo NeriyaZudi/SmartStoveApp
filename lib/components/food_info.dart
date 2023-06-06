@@ -35,10 +35,10 @@ class FoodInfo extends StatelessWidget {
             ),
             title: Text(
               text,
-              style: const TextStyle(
+              style: TextStyle(
                 color: Colors.white,
                 fontWeight: FontWeight.bold,
-                fontSize: 18,
+                fontSize: text.contains('🌡️') ? 17 : 18,
                 fontFamily: "WixMadeforDisplay",
               ),
             ),

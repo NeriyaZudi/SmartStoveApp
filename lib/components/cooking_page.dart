@@ -19,14 +19,17 @@ class CookingPage extends StatefulWidget {
   final String img;
   final String time;
   final String temperature;
-  const CookingPage({
-    super.key,
-    required this.title,
-    required this.name,
-    required this.img,
-    required this.time,
-    required this.temperature,
-  });
+  final int totalTime;
+  final int turnOffTime;
+  const CookingPage(
+      {super.key,
+      required this.title,
+      required this.name,
+      required this.img,
+      required this.time,
+      required this.temperature,
+      required this.totalTime,
+      required this.turnOffTime});
 
   @override
   State<CookingPage> createState() => _CookingPageState();
@@ -35,8 +38,7 @@ class CookingPage extends StatefulWidget {
 class _CookingPageState extends State<CookingPage> {
   final Color firstColor = const Color.fromARGB(255, 148, 179, 174);
   final Color secondColor = const Color.fromARGB(255, 8, 67, 143);
-  static const maxSeconds = 140;
-  int seconds = maxSeconds;
+  int seconds = 140;
   Duration duration = Duration();
   Timer? timer;
   Timer? timerTemp;
@@ -49,6 +51,7 @@ class _CookingPageState extends State<CookingPage> {
 
   @override
   void initState() {
+    seconds = widget.totalTime * 60;
     super.initState();
     loadDevices();
     startTimer();
@@ -114,7 +117,7 @@ class _CookingPageState extends State<CookingPage> {
     timer = Timer.periodic(
       Duration(seconds: 1),
       (timer) {
-        if (seconds == 120) {
+        if (seconds == (widget.turnOffTime * 60)) {
           setState(() {
             stoveState = 'OFF 📴';
           });
@@ -187,7 +190,7 @@ class _CookingPageState extends State<CookingPage> {
     final isCancel = await showCancelDialog(context);
     if (isCancel) {
       setState(() {
-        seconds = maxSeconds;
+        seconds = widget.totalTime;
       });
       Navigator.push(context, MaterialPageRoute(
         builder: (context) {
@@ -527,7 +530,7 @@ class _CookingPageState extends State<CookingPage> {
         fit: StackFit.expand,
         children: [
           CircularProgressIndicator(
-            value: 1 - seconds / maxSeconds,
+            value: 1 - seconds / widget.totalTime,
             valueColor: AlwaysStoppedAnimation(firstColor),
             backgroundColor: secondColor,
             strokeWidth: 16,

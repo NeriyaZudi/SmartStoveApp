@@ -222,15 +222,15 @@ class _DetailsCardState extends State<DetailsCard> {
                               color: Colors.white, fontSize: 15),
                           backgroundColor: const Color(0Xff172663),
                           onSubmit: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) {
-                                  return CookingAnimation(
-                                      foodIndex: widget.foodIndex);
-                                },
-                              ),
-                            );
+                            // Navigator.push(
+                            //   context,
+                            //   MaterialPageRoute(
+                            //     builder: (context) {
+                            //       return CookingAnimation(
+                            //           foodIndex: widget.foodIndex);
+                            //     },
+                            //   ),
+                            // );
                           },
                           gradient: const LinearGradient(
                               begin: Alignment.topLeft,
