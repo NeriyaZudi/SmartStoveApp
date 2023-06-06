@@ -7,6 +7,7 @@ import 'package:smartStoveApp/barGraphs/pie_graph.dart';
 import 'package:smartStoveApp/components/info_card.dart';
 import 'package:smartStoveApp/constants/foods.dart';
 import 'package:smartStoveApp/constants/routes.dart';
+import 'package:smartStoveApp/pages/reset_password_page.dart';
 import 'package:smartStoveApp/utilities/show_logout_dialog.dart';
 import 'package:smartStoveApp/utilities/utils.dart';
 
@@ -187,6 +188,38 @@ class _ProfilePageState extends State<ProfilePage> {
               ],
             ),
           ),
+          // change password button
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 28),
+            child: GestureDetector(
+              onTap: () {
+                Navigator.push(context, MaterialPageRoute(
+                  builder: (context) {
+                    return const ResetPasswordPage();
+                  },
+                ));
+              },
+              child: Container(
+                padding: const EdgeInsets.all(15),
+                margin: const EdgeInsets.symmetric(horizontal: 25),
+                decoration: BoxDecoration(
+                  color: Colors.grey[400],
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: const Center(
+                  child: Text(
+                    "Change Password",
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
+          const SizedBox(height: 10),
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
