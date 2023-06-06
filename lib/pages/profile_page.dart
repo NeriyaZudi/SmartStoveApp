@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 import 'package:smartStoveApp/auth/auth_service.dart';
 import 'package:smartStoveApp/barGraphs/bar_graph.dart';
 import 'package:smartStoveApp/barGraphs/pie_graph.dart';
@@ -21,6 +22,7 @@ class ProfilePage extends StatefulWidget {
 class _ProfilePageState extends State<ProfilePage> {
   final Color firstColor = const Color.fromARGB(255, 148, 179, 174);
   final Color secondColor = const Color.fromARGB(255, 8, 67, 143);
+  final Color thirdColor = const Color.fromARGB(255, 40, 126, 238);
   final double coverHeight = 250;
   final double profileHeight = 144;
   String? userUid;
@@ -45,6 +47,8 @@ class _ProfilePageState extends State<ProfilePage> {
   String userName = '';
   String phone = '';
   String imgPath = '';
+  String lastFood = '';
+  int lastSavingTime = 0;
   final stove = STOVE;
   final url = STOVE_URL;
 
@@ -61,8 +65,11 @@ class _ProfilePageState extends State<ProfilePage> {
         setState(() {
           userName = snapshot.get('name');
           email = snapshot.id;
+          // ignore: prefer_interpolation_to_compose_strings
           phone = '0' + snapshot.get('phone');
           imgPath = snapshot.get('img');
+          lastSavingTime = snapshot.get('lastSavingTime');
+          lastFood = snapshot.get('lastFood');
         });
       } else {
         //print('User document does not exist');
@@ -248,6 +255,8 @@ class _ProfilePageState extends State<ProfilePage> {
                 child: PieChartFoods(),
               ),
               const SizedBox(height: 50),
+              buildLastSaving(),
+              const SizedBox(height: 20),
               Container(
                 width: 350,
                 decoration: BoxDecoration(
@@ -280,5 +289,71 @@ class _ProfilePageState extends State<ProfilePage> {
         ],
       ),
     );
+  }
+
+  buildLastSaving() {
+    double savingMoney = (lastSavingTime / 60) * 0.465;
+    String savingMoneyStr = savingMoney.toStringAsFixed(4);
+    return Container(
+        width: 350,
+        padding: const EdgeInsets.symmetric(horizontal: 10),
+        decoration: BoxDecoration(
+          color: Colors.grey.shade200,
+          borderRadius: BorderRadius.circular(12),
+          gradient: LinearGradient(
+            colors: [
+              firstColor,
+              secondColor,
+            ],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+          ),
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const SizedBox(height: 5),
+            const Text(
+              'Last Cooking Operation',
+              style: TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+                fontSize: 18,
+                fontFamily: "WixMadeforDisplay",
+              ),
+            ),
+            const SizedBox(height: 5),
+            Text(
+              'You Cooked $lastFood ',
+              style: const TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+                fontSize: 14,
+                fontFamily: "WixMadeforDisplay",
+              ),
+            ),
+            const SizedBox(height: 5),
+            Text(
+              'You Saved $savingMoneyStr ₪',
+              style: const TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+                fontSize: 14,
+                fontFamily: "WixMadeforDisplay",
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(5.0),
+              child: Lottie.network(
+                //'animations/cooking.json',
+                'https://assets1.lottiefiles.com/private_files/lf30_0lKPGC.json',
+                height: 200,
+                width: 400,
+                repeat: true,
+                fit: BoxFit.contain,
+              ),
+            ),
+          ],
+        ));
   }
 }
