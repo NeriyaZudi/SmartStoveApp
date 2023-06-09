@@ -23,9 +23,9 @@ class _NotificationsPageState extends State<NotificationsPage> {
   BluetoothConnection? connection;
   String macAddress = "00:22:06:30:48:2D";
   dynamic currentTemperature;
-  bool isTurnOnAlert = false;
-  bool isTurnOffAlert = false;
-  bool isfinishCookingAlert = false;
+  bool isTurnOnAlert = true;
+  bool isTurnOffAlert = true;
+  bool isfinishCookingAlert = true;
 
   @override
   void initState() {
@@ -415,22 +415,7 @@ class _NotificationsPageState extends State<NotificationsPage> {
                 ),
               ),
             ),
-
-            // ElevatedButton(
-            //   onPressed: () {
-            //     sendData('2');
-            //   },
-            //   child: const Text('Read Temperature'),
-            // ),
-            // const SizedBox(height: 10),
-            // Text(
-            //   'Current Temperature : $currentTemperature°',
-            //   style: TextStyle(
-            //     color: Colors.red.shade500,
-            //     fontWeight: FontWeight.bold,
-            //   ),
-            // ),
-            // const SizedBox(height: 10),
+            const SizedBox(height: 15),
           ]),
         ),
       ),

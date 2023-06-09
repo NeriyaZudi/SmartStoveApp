@@ -1,6 +1,8 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bluetooth_serial/flutter_bluetooth_serial.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:smartStoveApp/utilities/notification.dart';
 
 // ignore: must_be_immutable
 class MySwitch extends StatefulWidget {
@@ -12,6 +14,15 @@ class MySwitch extends StatefulWidget {
 }
 
 class _MySwitchState extends State<MySwitch> {
+  final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+      FlutterLocalNotificationsPlugin();
+
+  @override
+  void initState() {
+    super.initState();
+    Notifications.initialize(flutterLocalNotificationsPlugin);
+  }
+
   Future<void> sendData(String data) async {
     data = data.trim();
     try {
@@ -87,6 +98,17 @@ class _MySwitchState extends State<MySwitch> {
     setState(() {
       toggleValue = !toggleValue;
       toggleValue ? sendData('1') : sendData('0');
+      toggleValue
+          ? Notifications.showBigTextNotification(
+              title: 'The stove is On',
+              body: 'Your stoves are on, please be careful !',
+              fln: flutterLocalNotificationsPlugin,
+            )
+          : Notifications.showBigTextNotification(
+              title: 'The stove is Off',
+              body: 'Please be careful, they may still be hot!',
+              fln: flutterLocalNotificationsPlugin,
+            );
     });
   }
 }

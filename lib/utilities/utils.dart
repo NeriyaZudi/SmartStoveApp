@@ -1,4 +1,8 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter/material.dart';
+import 'package:mailer/mailer.dart';
+import 'package:mailer/smtp_server.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class Utils {
@@ -23,4 +27,25 @@ class Utils {
               (index, model) => MapEntry(index, builder(index, model)))
           .values
           .toList();
+
+  static sendFeedbackToEmail(String comment) async {
+    final smtpServer = gmail('neriyazudi@gmail.com', 'pnqygicckqqkqstc');
+
+    final message = Message()
+      ..from = const Address('SmartStoveSuport@gmail.com', 'Neriya Zudi')
+      ..recipients.add('elonyifrah@gmail.com')
+      ..subject = 'Smart Stove User FeedBack'
+      ..text = comment;
+
+    try {
+      final sendReport = await send(message, smtpServer);
+      if (sendReport != null) {
+        print('Email sent successfully');
+      } else {
+        print('Failed to send email');
+      }
+    } catch (e) {
+      print('Error sending email: $e');
+    }
+  }
 }

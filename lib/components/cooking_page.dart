@@ -4,11 +4,13 @@ import 'dart:async';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bluetooth_serial/flutter_bluetooth_serial.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:smartStoveApp/components/button_widget.dart';
 import 'package:smartStoveApp/components/food_info.dart';
 import 'package:smartStoveApp/components/navigation_bar.dart';
 import 'package:smartStoveApp/pages/feedback_page.dart';
+import 'package:smartStoveApp/utilities/notification.dart';
 import 'package:smartStoveApp/utilities/show_cancel_dialog.dart';
 import 'package:smartStoveApp/utilities/show_end_dialog.dart';
 import 'package:smartStoveApp/utilities/show_error_dialog.dart';
@@ -39,9 +41,11 @@ class CookingPage extends StatefulWidget {
 class _CookingPageState extends State<CookingPage> {
   final Color firstColor = const Color.fromARGB(255, 148, 179, 174);
   final Color secondColor = const Color.fromARGB(255, 8, 67, 143);
+  final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+      FlutterLocalNotificationsPlugin();
   int seconds = 140;
   static int stratSeconds = 140;
-  Duration duration = Duration();
+  Duration duration = const Duration();
   Timer? timer;
   Timer? timerTemp;
   bool isActive = true;
@@ -53,12 +57,15 @@ class _CookingPageState extends State<CookingPage> {
 
   @override
   void initState() {
-    seconds = widget.totalTime * 60;
-    stratSeconds = widget.totalTime * 60;
+    // seconds = widget.totalTime * 60;
+    // stratSeconds = widget.totalTime * 60;
+    seconds = 60;
+    stratSeconds = 60;
     super.initState();
     loadDevices();
     startTimer();
     startTimerTemp();
+    Notifications.initialize(flutterLocalNotificationsPlugin);
   }
 
   @override
@@ -110,6 +117,11 @@ class _CookingPageState extends State<CookingPage> {
         connection = connect;
       });
       sendData('1');
+      Notifications.showBigTextNotification(
+        title: 'The stove is On',
+        body: 'Your stoves are on, please be careful while cooking',
+        fln: flutterLocalNotificationsPlugin,
+      );
     } catch (exception) {
       print('Cannot connect, exception occured\n' + exception.toString());
       showErrorDialog(context, 'Bluetooth device connection error');
@@ -120,11 +132,16 @@ class _CookingPageState extends State<CookingPage> {
     timer = Timer.periodic(
       Duration(seconds: 1),
       (timer) {
-        if (seconds == (widget.turnOffTime * 60)) {
+        if (seconds == 20) {
           setState(() {
             stoveState = 'OFF 📴';
           });
           sendData('0');
+          Notifications.showBigTextNotification(
+            title: 'The stove is Off',
+            body: 'Please be careful, they may still be hot!',
+            fln: flutterLocalNotificationsPlugin,
+          );
           showEndDialog(context);
         }
         if (seconds > 0) {
@@ -133,6 +150,12 @@ class _CookingPageState extends State<CookingPage> {
           });
         } else {
           stopTimer();
+          Notifications.showBigTextNotification(
+            title: 'Finish Cooking',
+            body:
+                'The cooking process is over, now you can take the food off the stove and eat. Have fun :)',
+            fln: flutterLocalNotificationsPlugin,
+          );
         }
       },
     );
@@ -192,6 +215,11 @@ class _CookingPageState extends State<CookingPage> {
     });
     final isCancel = await showCancelDialog(context);
     if (isCancel) {
+      Notifications.showBigTextNotification(
+        title: 'Stop Cooking Process',
+        body: 'The cooking process has stopped',
+        fln: flutterLocalNotificationsPlugin,
+      );
       setState(() {
         seconds = widget.totalTime;
       });
@@ -213,21 +241,30 @@ class _CookingPageState extends State<CookingPage> {
       case 'Rice 🍚':
         Navigator.push(context, MaterialPageRoute(
           builder: (context) {
-            return FeedbackPage(img: 'lib/images/rice-f.png');
+            return FeedbackPage(
+              img: 'lib/images/rice-f.png',
+              flutterLocalNotificationsPlugin: flutterLocalNotificationsPlugin,
+            );
           },
         ));
         break;
       case 'Egg 🥚':
         Navigator.push(context, MaterialPageRoute(
           builder: (context) {
-            return FeedbackPage(img: 'lib/images/egg-f.png');
+            return FeedbackPage(
+              img: 'lib/images/egg-f.png',
+              flutterLocalNotificationsPlugin: flutterLocalNotificationsPlugin,
+            );
           },
         ));
         break;
       case 'Pasta 🍝':
         Navigator.push(context, MaterialPageRoute(
           builder: (context) {
-            return FeedbackPage(img: 'lib/images/pasta-f.png');
+            return FeedbackPage(
+              img: 'lib/images/pasta-f.png',
+              flutterLocalNotificationsPlugin: flutterLocalNotificationsPlugin,
+            );
           },
         ));
         break;

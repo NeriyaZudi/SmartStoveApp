@@ -1,13 +1,21 @@
 // ignore_for_file: import_of_legacy_library_into_null_safe
 
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:smartStoveApp/components/button_widget.dart';
 import 'package:smartStoveApp/components/feedback_animation.dart';
+import 'package:smartStoveApp/utilities/notification.dart';
+import 'package:smartStoveApp/utilities/utils.dart';
 import 'package:smooth_star_rating_null_safety/smooth_star_rating_null_safety.dart';
 
 class FeedbackPage extends StatefulWidget {
   final String img;
-  FeedbackPage({super.key, required this.img});
+  final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
+
+  FeedbackPage(
+      {super.key,
+      required this.img,
+      required this.flutterLocalNotificationsPlugin});
 
   @override
   State<FeedbackPage> createState() => _FeedbackPageState();
@@ -143,31 +151,6 @@ class _FeedbackPageState extends State<FeedbackPage> {
                     });
                   },
                 ),
-                // const SizedBox(height: 10),
-                // const Text(
-                //   'Rate The Cooking Time',
-                //   style: TextStyle(
-                //     color: Colors.black,
-                //     fontSize: 16,
-                //     fontWeight: FontWeight.w400,
-                //     fontFamily: 'Ubuntu',
-                //   ),
-                // ),
-                // const SizedBox(height: 5),
-                // SmoothStarRating(
-                //   rating: timeRating,
-                //   starCount: 5,
-                //   size: 45,
-                //   filledIconData: Icons.star,
-                //   halfFilledIconData: Icons.star_half,
-                //   defaultIconData: Icons.star_border,
-                //   spacing: 2.0,
-                //   onRated: (val) {
-                //     setState(() {
-                //       timeRating = val;
-                //     });
-                //   },
-                // ),
                 const SizedBox(height: 10),
                 const Text(
                   'Rate Our Smart Stove App',
@@ -180,7 +163,7 @@ class _FeedbackPageState extends State<FeedbackPage> {
                 ),
                 const SizedBox(height: 5),
                 SmoothStarRating(
-                  rating: foodRating,
+                  rating: appRating,
                   starCount: 5,
                   size: 45,
                   color: const Color.fromARGB(216, 214, 195, 22),
@@ -239,6 +222,13 @@ class _FeedbackPageState extends State<FeedbackPage> {
                     bgcolor: Colors.transparent,
                     icon: const Icon(Icons.send),
                     onClick: () {
+                      Notifications.showBigTextNotification(
+                        title: 'Thank You !',
+                        body:
+                            'Thanks for your feedback, it helps us improve :)',
+                        fln: widget.flutterLocalNotificationsPlugin,
+                      );
+                      Utils.sendFeedbackToEmail(commentController.text);
                       Navigator.of(context).pushReplacement(MaterialPageRoute(
                         builder: (context) => const FeedbackAnimation(),
                       ));
