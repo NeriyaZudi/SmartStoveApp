@@ -228,7 +228,8 @@ class _FeedbackPageState extends State<FeedbackPage> {
                             'Thanks for your feedback, it helps us improve :)',
                         fln: widget.flutterLocalNotificationsPlugin,
                       );
-                      Utils.sendFeedbackToEmail(commentController.text);
+                      Utils.sendFeedbackToEmail(
+                          commentController.text, foodRating);
                       Navigator.of(context).pushReplacement(MaterialPageRoute(
                         builder: (context) => const FeedbackAnimation(),
                       ));

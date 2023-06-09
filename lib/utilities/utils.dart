@@ -28,14 +28,14 @@ class Utils {
           .values
           .toList();
 
-  static sendFeedbackToEmail(String comment) async {
+  static sendFeedbackToEmail(String comment, double rate) async {
     final smtpServer = gmail('neriyazudi@gmail.com', 'pnqygicckqqkqstc');
 
     final message = Message()
       ..from = const Address('SmartStoveSuport@gmail.com', 'Neriya Zudi')
-      ..recipients.add('elonyifrah@gmail.com')
+      ..recipients.add('neriyazudi6@gmail.com')
       ..subject = 'Smart Stove User FeedBack'
-      ..text = comment;
+      ..text = '$comment Food Result Rating: $rate.';
 
     try {
       final sendReport = await send(message, smtpServer);

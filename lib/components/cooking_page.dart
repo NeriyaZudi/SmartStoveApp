@@ -57,10 +57,8 @@ class _CookingPageState extends State<CookingPage> {
 
   @override
   void initState() {
-    // seconds = widget.totalTime * 60;
-    // stratSeconds = widget.totalTime * 60;
-    seconds = 60;
-    stratSeconds = 60;
+    seconds = widget.totalTime * 60;
+    stratSeconds = widget.totalTime * 60;
     super.initState();
     loadDevices();
     startTimer();
@@ -130,9 +128,9 @@ class _CookingPageState extends State<CookingPage> {
 
   void startTimer() {
     timer = Timer.periodic(
-      Duration(seconds: 1),
+      const Duration(seconds: 1),
       (timer) {
-        if (seconds == 20) {
+        if (seconds == (widget.turnOffTime * 60)) {
           setState(() {
             stoveState = 'OFF 📴';
           });
