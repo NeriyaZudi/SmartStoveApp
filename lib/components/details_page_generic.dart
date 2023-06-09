@@ -340,7 +340,9 @@ class _DetailsPageState extends State<DetailsPage> {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Text(
-          'Amount of ${widget.name} : ${amountValue.round()}g',
+          widget.foodIndex != 1
+              ? 'Amount of ${widget.name} : ${amountValue.round()}g'
+              : 'Amount of ${widget.name} : ${amountValue.round()}',
           style: GoogleFonts.lato(
             textStyle: const TextStyle(
               color: Colors.white,

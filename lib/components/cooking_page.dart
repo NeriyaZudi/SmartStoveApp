@@ -21,15 +21,16 @@ class CookingPage extends StatefulWidget {
   final String temperature;
   final int totalTime;
   final int turnOffTime;
-  const CookingPage(
-      {super.key,
-      required this.title,
-      required this.name,
-      required this.img,
-      required this.time,
-      required this.temperature,
-      required this.totalTime,
-      required this.turnOffTime});
+  const CookingPage({
+    super.key,
+    required this.title,
+    required this.name,
+    required this.img,
+    required this.time,
+    required this.temperature,
+    required this.totalTime,
+    required this.turnOffTime,
+  });
 
   @override
   State<CookingPage> createState() => _CookingPageState();
@@ -39,6 +40,7 @@ class _CookingPageState extends State<CookingPage> {
   final Color firstColor = const Color.fromARGB(255, 148, 179, 174);
   final Color secondColor = const Color.fromARGB(255, 8, 67, 143);
   int seconds = 140;
+  static int stratSeconds = 140;
   Duration duration = Duration();
   Timer? timer;
   Timer? timerTemp;
@@ -52,6 +54,7 @@ class _CookingPageState extends State<CookingPage> {
   @override
   void initState() {
     seconds = widget.totalTime * 60;
+    stratSeconds = widget.totalTime * 60;
     super.initState();
     loadDevices();
     startTimer();
@@ -399,46 +402,6 @@ class _CookingPageState extends State<CookingPage> {
                 text: 'Stove State:   $stoveState',
                 icon: Icons.toggle_on,
               ),
-              // Row(
-              //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              //   children: [
-              //     Text(
-              //       'Current Temperature: ',
-              //       style: TextStyle(
-              //         color: Colors.red.shade600,
-              //         fontSize: 18,
-              //       ),
-              //     ),
-              //     Text(
-              //       '$currentTemperature ° 🌡️',
-              //       style: TextStyle(
-              //         color: Colors.red.shade600,
-              //         fontWeight: FontWeight.bold,
-              //         fontSize: 18,
-              //       ),
-              //     ),
-              //   ],
-              // ),
-              // const SizedBox(height: 15),
-              // const Row(
-              //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              //   children: [
-              //     Text(
-              //       'Stove State: ',
-              //       style: TextStyle(
-              //         color: Colors.black,
-              //         fontSize: 18,
-              //       ),
-              //     ),
-              //     Text(
-              //       'ON ',
-              //       style: TextStyle(
-              //         color: Colors.blue,
-              //         fontSize: 18,
-              //       ),
-              //     ),
-              //   ],
-              // ),
             ],
           );
   }
@@ -530,7 +493,7 @@ class _CookingPageState extends State<CookingPage> {
         fit: StackFit.expand,
         children: [
           CircularProgressIndicator(
-            value: 1 - seconds / widget.totalTime,
+            value: 1 - seconds / stratSeconds,
             valueColor: AlwaysStoppedAnimation(firstColor),
             backgroundColor: secondColor,
             strokeWidth: 16,
