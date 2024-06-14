@@ -25,10 +25,14 @@ In this project we demonstrate our knowledge in:
   # Some Pictures...
 <h3> Sign Up & Log In Pages </h3>
 App registration page and login page includes the option to log in using Google or iPhone<br>
-<div display="inline-block">
- <img src="https://github.com/NeriyaZudi/SmartStoveApp/blob/25c322abc10b22cd2731829275ee1720a701eea4/assets/images/%D7%94%D7%A8%D7%A9%D7%9E%D7%94.png" align="center" 
-      alt="signup"  width="200" height="400"><br>
-<img src="https://github.com/NeriyaZudi/SmartStoveApp/blob/25c322abc10b22cd2731829275ee1720a701eea4/assets/images/%D7%94%D7%97%D7%91%D7%A8%D7%95%D7%AA.png" align="center" 
-      alt="login"  width="200" height="400"><br>  
-</div>
+    <div>
+        <span style="display:inline-block;">
+            <img src="https://github.com/NeriyaZudi/SmartStoveApp/blob/25c322abc10b22cd2731829275ee1720a701eea4/assets/images/%D7%94%D7%A8%D7%A9%D7%9E%D7%94.png" 
+                 alt="signup" width="200" height="400">
+        </span>
+        <span style="display:inline-block;">
+            <img src="https://github.com/NeriyaZudi/SmartStoveApp/blob/25c322abc10b22cd2731829275ee1720a701eea4/assets/images/%D7%94%D7%97%D7%91%D7%A8%D7%95%D7%AA.png" 
+                 alt="login" width="200" height="400">
+        </span>
+    </div>
 
