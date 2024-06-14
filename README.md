@@ -15,6 +15,15 @@ By: Neriya Zudi | <img src="https://img.shields.io/badge/Neriya-Flutter Delevope
  <img src="https://github.com/NeriyaZudi/SmartStoveApp/blob/10369dbb84bdca3ae6f494c681264cdba1c38e71/assets/images/main-image.png" align="right"
      alt="main logo" width="320" height="98">
   <hr>
+In this project we demonstrate our knowledge in:
+* **Salesforce interface and features**
+        * **Classes and APEX Triggers**
+        * **LWC Components**
+        * **LOTTIE Embedding animations**
+        * **salesforce flow (send email action)**
+
+
+  
      In this project we demonstrate our knowledge in:
    * **Flutter mobile app development**
    * **AI Machine learning model - decision tree**
