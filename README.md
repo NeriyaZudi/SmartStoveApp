@@ -24,7 +24,7 @@ In this project we demonstrate our knowledge in:
    * **Messing with Bluetooth components**
   # Some Pictures...
 <h3> Sign Up & Log In Pages </h3>
-App registration page and login page includes the option to log in using Google or iPhone<br>
+App registration page and login page includes the option to log in using Google or Apple accounts<br>
     <div>
         <span style="display:inline-block;">
             <img src="https://github.com/NeriyaZudi/SmartStoveApp/blob/25c322abc10b22cd2731829275ee1720a701eea4/assets/images/%D7%94%D7%A8%D7%A9%D7%9E%D7%94.png" 
@@ -33,6 +33,18 @@ App registration page and login page includes the option to log in using Google 
         <span style="display:inline-block;">
             <img src="https://github.com/NeriyaZudi/SmartStoveApp/blob/25c322abc10b22cd2731829275ee1720a701eea4/assets/images/%D7%94%D7%97%D7%91%D7%A8%D7%95%D7%AA.png" 
                  alt="login" width="200" height="400">
+        </span>
+    </div>
+     <h3> Add Products </h3>
+ Dish/Food selection page to start the cooking process and an information page about the application and explanations of its use<br>
+    <div>
+        <span style="display:inline-block;">
+            <img src="https://github.com/NeriyaZudi/SmartStoveApp/blob/fac98ce879c9607b3575059e9523cfba453d6156/assets/images/%D7%91%D7%99%D7%AA.png" 
+                 alt="home" width="200" height="400">
+        </span>
+        <span style="display:inline-block;">
+            <img src="https://github.com/NeriyaZudi/SmartStoveApp/blob/fac98ce879c9607b3575059e9523cfba453d6156/assets/%D7%9E%D7%99%D7%93%D7%A2.png" 
+                 alt="info" width="200" height="400">
         </span>
     </div>
 
