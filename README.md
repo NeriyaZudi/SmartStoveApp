@@ -48,8 +48,9 @@ App registration page and login page includes the option to log in using Google 
         </span>
     </div>
          <h3> Cooking Page & Select Paramters Page </h3>
- The cooking parameters selection page, in order to send to an artificial intelligence model to calculate the automatic shutdown time of the stove.<br>
- After receiving an answer from the model, the user is shown the cooking page with a timer as well as notifications about turning the stove on/off.<br>
+ The cooking parameters selection page, in order to send to an AI model to calculate the automatic shutdown time of the stove.<br>
+ After model calculation, the user is shown the cooking page with a timer as well as notifications about turning the stove on/off.<br>
+ After the cooking is finished, the user enters feedback on the cooking process<br> in order to send the results to the model for training and accuracy.<br>
     <div>
         <span style="display:inline-block;">
             <img src="https://github.com/NeriyaZudi/SmartStoveApp/blob/f7fd36f6317554292780fd1ae7f31363c0799d7d/assets/images/%D7%A4%D7%A8%D7%9E%D7%98%D7%A8%D7%99%D7%9D.png" 
@@ -58,6 +59,23 @@ App registration page and login page includes the option to log in using Google 
         <span style="display:inline-block;">
             <img src="https://github.com/NeriyaZudi/SmartStoveApp/blob/f7fd36f6317554292780fd1ae7f31363c0799d7d/assets/images/%D7%9E%D7%A1%D7%9A%20%D7%91%D7%99%D7%A9%D7%95%D7%9C.png" 
                  alt="cook" width="200" height="400">
+        </span>
+          <span style="display:inline-block;">
+            <img src="https://github.com/NeriyaZudi/SmartStoveApp/blob/67805c06419ae5b26877b4dfdca887c0aeb0f9d0/assets/images/%D7%A4%D7%99%D7%93%D7%91%D7%A7.png" 
+                 alt="feedback" width="200" height="400">
+        </span>
+    </div>
+             <h3> Control Page & Profile Page </h3>
+ On the control page, the user can turn the stove on and off,<br> as well as choose whether to receive notifications about various system states<br>
+On the profile page, the user is shown electricity-saving data and cooking statistics.<br>
+    <div>
+        <span style="display:inline-block;">
+            <img src="https://github.com/NeriyaZudi/SmartStoveApp/blob/67805c06419ae5b26877b4dfdca887c0aeb0f9d0/assets/images/%D7%A9%D7%9C%D7%99%D7%98%D7%94.png" 
+                 alt="control" width="200" height="400">
+        </span>
+        <span style="display:inline-block;">
+            <img src="https://github.com/NeriyaZudi/SmartStoveApp/blob/67805c06419ae5b26877b4dfdca887c0aeb0f9d0/assets/images/%D7%A4%D7%A8%D7%95%D7%A4%D7%99%D7%9C.png" 
+                 alt="profile" width="200" height="400">
         </span>
     </div>
 
