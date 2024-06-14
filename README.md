@@ -78,4 +78,8 @@ On the profile page, the user is shown electricity-saving data and cooking stati
                  alt="profile" width="200" height="400">
         </span>
     </div>
+     <h1> Explanatory presentation about the project </h1>
+     <div>
+        <a href="https://github.com/NeriyaZudi/SmartStoveApp/blob/63a93c1109298a8bbada129fe07d731f1251b55b/assets/Smart%20Stove%20Final.pptx.pdf" download>Download PDF</a>
+    </div>
 
