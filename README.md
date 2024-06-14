@@ -35,7 +35,7 @@ App registration page and login page includes the option to log in using Google 
                  alt="login" width="200" height="400">
         </span>
     </div>
-     <h3> Add Products </h3>
+     <h3> Home Page & Info Page </h3>
  Dish/Food selection page to start the cooking process and an information page about the application and explanations of its use<br>
     <div>
         <span style="display:inline-block;">
@@ -45,6 +45,19 @@ App registration page and login page includes the option to log in using Google 
         <span style="display:inline-block;">
             <img src="https://github.com/NeriyaZudi/SmartStoveApp/blob/fac98ce879c9607b3575059e9523cfba453d6156/assets/%D7%9E%D7%99%D7%93%D7%A2.png" 
                  alt="info" width="200" height="400">
+        </span>
+    </div>
+         <h3> Cooking Page & Select Paramters Page </h3>
+ The cooking parameters selection page, in order to send to an artificial intelligence model to calculate the automatic shutdown time of the stove.<br>
+ After receiving an answer from the model, the user is shown the cooking page with a timer as well as notifications about turning the stove on/off.<br>
+    <div>
+        <span style="display:inline-block;">
+            <img src="https://github.com/NeriyaZudi/SmartStoveApp/blob/f7fd36f6317554292780fd1ae7f31363c0799d7d/assets/images/%D7%A4%D7%A8%D7%9E%D7%98%D7%A8%D7%99%D7%9D.png" 
+                 alt="parms" width="200" height="400">
+        </span>
+        <span style="display:inline-block;">
+            <img src="https://github.com/NeriyaZudi/SmartStoveApp/blob/f7fd36f6317554292780fd1ae7f31363c0799d7d/assets/images/%D7%9E%D7%A1%D7%9A%20%D7%91%D7%99%D7%A9%D7%95%D7%9C.png" 
+                 alt="cook" width="200" height="400">
         </span>
     </div>
 
