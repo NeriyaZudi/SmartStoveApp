@@ -11,9 +11,9 @@ By: Neriya Zudi | <img src="https://img.shields.io/badge/Neriya-Flutter Delevope
      The application was created to control smart stoves 
      and display data and notifications to the user in real-time.
      The application was developed in the flutter language and interfaces with Bluetooth components and an Arduino controller
-  <hr>
- <img src="https://github.com/NeriyaZudi/Salesforce-Training/blob/main/project%20pictures/lightning-web-components-removebg-preview.png?raw=true" align="right"
-     alt="LWC logo" width="320" height="98">
+     
+ <img src="https://github.com/NeriyaZudi/SmartStoveApp/blob/10369dbb84bdca3ae6f494c681264cdba1c38e71/assets/images/main-image.png" align="right"
+     alt="main logo" width="320" height="98">
   <hr>
      In this project we demonstrate our knowledge in:
    * **Flutter mobile app development**
